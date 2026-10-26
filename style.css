@@ -1,3 +1,70 @@
+/* --- GLOBAL SMOOTH SCROLL --- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Prevents the navbar from hiding the section headers */
+}
+
+/* --- NAVIGATION BAR --- */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  background: rgba(15, 23, 42, 0.85); /* Frosted glass effect */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #334155;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+}
+
+.nav-brand {
+  color: #38bdf8;
+  font-family: 'Consolas', monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.nav-links a:hover {
+  color: #38bdf8;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+@media (max-width: 768px) {
+  #navbar { padding: 15px 20px; }
+  .nav-links { gap: 15px; }
+  .nav-links a { font-size: 0.85rem; }
+}
+
+/* --- SCROLL ANIMATIONS --- */
+.scroll-hidden {
+  opacity: 0;
+  transform: translateY(40px); /* Pushes elements down slightly */
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.scroll-show {
+  opacity: 1;
+  transform: translateY(0); /* Glides them back up into place */
+}
+
 /* --- BASE SYSTEM --- */
 * {
   margin: 0;
@@ -473,25 +540,28 @@ html {
   margin-bottom: 10px;
 }
 
-/* --- DEVELOPER MODE TOGGLE --- */
+/* --- DEVELOPER MODE BUTTON --- */
 .dev-btn {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #0f172a;
+  bottom: 30px;
+  right: 30px;
+  background-color: #0f172a;
   color: #38bdf8;
   border: 1px solid #38bdf8;
-  padding: 10px 15px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 8px;
   font-family: 'Consolas', monospace;
+  font-size: 0.9rem;
   cursor: pointer;
-  z-index: 1000;
-  transition: all 0.3s;
+  z-index: 900; /* Stays above the page, but strictly below the navbar and modals */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .dev-btn:hover {
-  background: #38bdf8;
+  background-color: #38bdf8;
   color: #0f172a;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
 
 /* --- X-RAY / MATRIX DEV MODE --- */
@@ -1024,4 +1094,89 @@ body.xray-active .profile-wrapper {
   transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s !important;
   opacity: 0;
   pointer-events: none;
+}
+
+/* --- GIT COMMIT TIMELINE (EXPERIENCE) --- */
+.git-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 30px; /* Space for the line */
+}
+
+/* The continuous vertical track */
+.git-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 6px; /* Centers the line under the dots */
+  height: 100%;
+  width: 2px;
+  background-color: #334155;
+}
+
+.timeline-commit {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-commit:last-child {
+  margin-bottom: 0;
+}
+
+/* The Commit Node */
+.commit-dot {
+  position: absolute;
+  top: 5px;
+  left: -29px; /* Pulls it exactly over the vertical line */
+  width: 14px;
+  height: 14px;
+  background-color: #0f172a;
+  border: 2px solid #38bdf8;
+  border-radius: 50%;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+/* The Experience Card */
+.commit-card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Add a tiny CSS arrow pointing to the line */
+.commit-card::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: -10px;
+  border-width: 10px 10px 10px 0;
+  border-style: solid;
+  border-color: transparent #334155 transparent transparent;
+  transition: border-color 0.3s ease;
+}
+
+.commit-date {
+  color: #64748b;
+  font-family: 'Consolas', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+/* Hover Effects */
+.timeline-commit:hover .commit-card {
+  border-color: #38bdf8;
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
+  transform: translateX(5px);
+}
+.timeline-commit:hover .commit-card::before {
+  border-color: transparent #38bdf8 transparent transparent;
+}
+.timeline-commit:hover .commit-dot {
+  background-color: #38bdf8;
+  box-shadow: 0 0 15px #38bdf8;
 }
