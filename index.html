@@ -8,30 +8,11 @@
 </head>
 <body>
 <!-- DEVELOPER MODE TOGGLE -->
-  <button id="dev-toggle" class="dev-btn">[ { } JSON View ]</button>
+  <!-- DEVELOPER MODE TOGGLE -->
+  <button id="dev-toggle" class="dev-btn">[ { } Enter Dev Mode ]</button>
   
-  <div id="json-wrapper" class="hidden">
-    <div class="ide-window">
-      <div class="ide-header">
-        <div class="mac-buttons">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        </div>
-        <span class="ide-title">portfolio-data.json - VS Code</span>
-      </div>
-      <div class="ide-body">
-    <pre><code><span class="brace">{</span>
-      <span class="key">"developer"</span>: <span class="string">"Shimeih Klein Montefalcon"</span>,
-      <span class="key">"title"</span>: <span class="string">"Software Engineer & Architect"</span>,
-      <span class="key">"status"</span>: <span class="string">"Ready for Deployment"</span>,
-      <span class="key">"stack"</span>: <span class="brace">{</span>
-        <span class="key">"backend"</span>: <span class="bracket">[</span><span class="string">"C#"</span>, <span class="string">"ASP.NET Core MVC"</span>, <span class="string">"Java"</span><span class="bracket">]</span>,
-        <span class="key">"database"</span>: <span class="bracket">[</span><span class="string">"MS SQL Server"</span>, <span class="string">"MySQL"</span><span class="bracket">]</span>,
-        <span class="key">"frontend"</span>: <span class="bracket">[</span><span class="string">"React"</span>, <span class="string">"Tailwind CSS"</span><span class="bracket">]</span>
-      <span class="brace">}</span>
-    <span class="brace">}</span></code></pre>
-          </div>
-        </div>
-  </div>
+  <!-- THE MATRIX BACKGROUND -->
+  <canvas id="matrix-bg" class="hidden"></canvas>
 
 <!-- HERO SECTION: THE TERMINAL -->
   <!-- HERO SECTION: THE TERMINAL -->
@@ -43,8 +24,16 @@
         <!-- Grouped Profile Picture and Name -->
         <div class="profile-name-group">
           <div class="profile-wrapper" id="profile-trigger" title="Click to swap image!">
+            <!-- Normal UI -->
             <img src="pic1.jpg" alt="Shimeih Klein Montefalcon" id="profile-pic" class="profile-img">
-          </div>
+            
+            <!-- Skeletal Code (Revealed in X-Ray Mode) -->
+            <div class="xray-code">
+              &lt;img id="pic"<br>
+              &nbsp;&nbsp;class="levitate"<br>
+              &nbsp;&nbsp;src="avatar" /&gt;
+            </div>
+          </div> 
           <h1 class="accent-color">Shimeih Klein<br>Montefalcon</h1>
         </div>
 
@@ -164,153 +153,113 @@
   </section>
 
   <!-- PROJECTS SECTION -->
+  <!-- PROJECTS SECTION (MINIMALIST BUTTON TRIGGERS) -->
   <section id="projects" class="section-dark">
-    <div class="container">
+    <div class="container center-text">
       <h2 class="section-title accent-color">Featured Projects</h2>
       
-      <!-- Project 1: DocuReq -->
-      <div class="project-card">
-        <div class="project-info">
-          <h3>DocuReq Student Portal</h3>
-          <p>Centralized web portal built with C#, ASP.NET Core MVC, and SQL Server.</p>
-          <button class="btn btn-secondary" style="margin-top: 20px; padding: 8px 16px; font-size: 0.9rem;" onclick="toggleCarousel('docureq')">View Screenshots</button>
-        </div>
-        
-        <div class="project-image">
-          <!-- Default View (Architecture Diagram) -->
-          <div class="architecture-diagram" id="default-docureq">
-            <div class="arch-node">User Interface</div>
-            <div class="arch-wire"><div class="data-packet"></div></div>
-            <div class="arch-node backend-node">ASP.NET Core MVC</div>
-            <div class="arch-wire"><div class="data-packet delay"></div></div>
-            <div class="arch-node db-node">MS SQL Server</div>
+      <div class="project-buttons-grid">
+        <button class="project-trigger-btn" onclick="openModal('docureq')">
+          <div class="btn-icon">📁</div>
+          <div class="btn-text">
+            <h3>DocuReq Student Portal</h3>
+            <span>Launch Project Window ➔</span>
           </div>
-          
-          <!-- Carousel View (Hidden Initially) -->
-          <div class="carousel-view hidden" id="carousel-docureq">
-            <button class="close-carousel" onclick="toggleCarousel('docureq')">✖ Back to Diagram</button>
-            <img src="docureq1.jpg" alt="DocuReq Screenshot" class="carousel-img" id="img-docureq">
-            <div class="carousel-controls">
-              <button onclick="prevImage('docureq')">◀ Prev</button>
-              <button onclick="nextImage('docureq')">Next ▶</button>
-            </div>
-          </div>
-        </div>
-      </div>
+        </button>
 
-      <!-- Project 2: DOST Tracker -->
-      <div class="project-card reverse-layout">
-        <div class="project-info">
-          <h3>DOST Rental Tracker</h3>
-          <p>Automated management system built using Google Apps Script.</p>
-          <button class="btn btn-secondary" style="margin-top: 20px; padding: 8px 16px; font-size: 0.9rem;" onclick="toggleCarousel('dost')">View Screenshots</button>
-        </div>
-        
-        <div class="project-image">
-          <!-- Default View (Architecture Diagram) -->
-          <div class="architecture-diagram" id="default-dost">
-            <div class="arch-node">User Interface</div>
-            <div class="arch-wire"><div class="data-packet"></div></div>
-            <div class="arch-node apps-script-node">Google Apps Script</div>
-            <div class="arch-wire"><div class="data-packet delay"></div></div>
-            <div class="arch-node sheets-node">Google Sheets</div>
+        <button class="project-trigger-btn" onclick="openModal('dost')">
+          <div class="btn-icon">📊</div>
+          <div class="btn-text">
+            <h3>DOST Rental Tracker</h3>
+            <span>Launch Project Window ➔</span>
           </div>
-
-          <!-- Carousel View (Hidden Initially) -->
-          <div class="carousel-view hidden" id="carousel-dost">
-            <button class="close-carousel" onclick="toggleCarousel('dost')">✖ Back to Diagram</button>
-            <img src="dost1.jpg" alt="DOST Tracker Screenshot" class="carousel-img" id="img-dost">
-            <div class="carousel-controls">
-              <button onclick="prevImage('dost')">◀ Prev</button>
-              <button onclick="nextImage('dost')">Next ▶</button>
-            </div>
-          </div>
-        </div>
+        </button>
       </div>
-      <!-- ACTIVE EXPLORATION: GAME DEV -->
-  <section id="exploration" class="section-dark">
-    <div class="container center-text">
-      <h2 class="section-title accent-color">Current Sandbox: Game Development</h2>
-      <p style="color: #94a3b8; max-width: 700px; margin: 0 auto 40px auto; font-size: 1.1rem; line-height: 1.6;">
-        While my foundation is in enterprise backend architecture, I am currently expanding my engineering skill set into game development. Using the Godot Engine and C#, I am experimenting with custom movement mechanics, physics interactions, and state machines.
-      </p>
       
-      <div class="video-showcase-grid">
-        <!-- Video 1 -->
-        <div class="video-card">
-          <!-- Replace 'godot1.mp4' with your actual video file name -->
-          <video src="godot1.mp4" autoplay loop muted playsinline class="showcase-video"></video>
-          <div class="video-caption">▶ Testing Physics & Collision</div>
-        </div>
-        
-        <!-- Video 2 -->
-        <div class="video-card">
-          <!-- Replace 'godot2.mp4' with your actual video file name -->
-          <video src="godot2.mp4" autoplay loop muted playsinline class="showcase-video"></video>
-          <div class="video-caption">▶ Movement State Machine Logic</div>
-        </div>
-      </div>
     </div>
   </section>
+  <!-- CURRENT FOCUS & SANDBOX SECTION -->
+  <section id="sandbox" class="section-dark">
+    <div class="container">
+      <h2 class="section-title accent-color">Current Focus & Sandbox</h2>
+      <p class="center-text" style="color: #94a3b8; max-width: 800px; margin: 0 auto 60px auto; font-size: 1.1rem; line-height: 1.6;">
+        While my foundation is in enterprise backend architecture, I am actively expanding my engineering toolkit into game mechanics and cross-platform mobile environments.
+      </p>
 
-  <!-- ACTIVE EXPLORATION: MOBILE DEV -->
-  <section id="mobile-dev" class="section-light">
-    <div class="container hero-split">
-      
-      <div class="hero-text">
-        <h2 class="section-title accent-color" style="text-align: left; margin-bottom: 20px;">Mobile App Development</h2>
-        <p style="color: #94a3b8; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">
-          Taking my architecture skills on the go. I am currently diving into cross-platform mobile development, learning how to translate robust C# and relational database backend logic into responsive, native-feeling mobile interfaces.
+      <!-- Sub-section 1: Game Development -->
+      <div class="sandbox-block" style="margin-bottom: 80px;">
+        <h3 style="margin-bottom: 20px; color: #f8fafc;">🕹️ Game Development Mechanics</h3>
+        <p style="color: #94a3b8; margin-bottom: 30px; line-height: 1.6;">
+          Using the Godot Engine and C#, I have tried exploring how to do basic coding and programming logic for game mechanics. The following are some of my experiments with physics, animations, and other game mechanics.
         </p>
-        <div class="tech-tags">
-          <span>React Native</span> <span>.NET MAUI</span> <span>Mobile UX</span>
+        
+        <div class="video-showcase-grid">
+          <div class="video-card">
+            <video src="godot1.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+            <div class="video-caption">▶ Basic Physics and Movements</div>
+          </div>
+          <div class="video-card">
+            <video src="godot2.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+            <div class="video-caption">▶ Animations and Game Logic</div>
+          </div>
         </div>
       </div>
-      
-      <!-- The Interactive CSS Phone -->
-      <div class="phone-container">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          
-          <div class="phone-screen" id="mobile-screen">
+
+      <!-- Subtle Divider -->
+      <hr style="border: 0; height: 1px; background-color: #334155; margin-bottom: 80px;">
+
+      <!-- Sub-section 2: Mobile App Development -->
+      <div class="sandbox-block hero-split">
+        <div class="hero-text">
+          <h3 style="margin-bottom: 20px; color: #f8fafc;">📱 Mobile App Development</h3>
+          <p style="color: #94a3b8; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">
+            Taking my architecture skills on the go. I am currently diving into cross-platform mobile development, translating robust C# and SQL server backend logic into responsive, native mobile interfaces.
+          </p>
+          <div class="tech-tags">
+            <span>React Native</span> <span>.NET MAUI</span> <span>Mobile UX</span>
+          </div>
+        </div>
+        
+        <!-- The Interactive CSS Phone -->
+        <div class="phone-container">
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
             
-            <!-- State 1: Start Screen -->
-            <div class="app-ui" id="app-start">
-              <div class="app-icon">📱</div>
-              <h3 style="margin-bottom: 20px;">Portfolio_App</h3>
-              <button class="btn btn-primary" onclick="bootApp()" style="padding: 8px 16px; font-size: 0.9rem;">Launch App</button>
-            </div>
-            
-            <!-- State 2: Loading Sequence (Hidden) -->
-            <div class="app-ui hidden" id="app-loading">
-              <div class="spinner"></div>
-              <p class="terminal-text">Compiling assets...</p>
-              <p class="terminal-text" style="color: #94a3b8; font-size: 0.75rem; margin-top: 5px;">Connecting to C# backend</p>
-            </div>
-            
-            <!-- State 3: Active App (Hidden) -->
-            <div class="app-ui hidden" id="app-active" style="padding: 0;">
-              <div class="mobile-header">Home</div>
-              <div class="mobile-body">
-                <div class="skeleton-line"></div>
-                <div class="skeleton-line short"></div>
-                
-                <div class="mobile-card">
-                  <strong>Status:</strong> Sync Successful
-                  <br><br>
-                  <span style="color: #94a3b8;">Data retrieved from MS SQL Server via secure API endpoint.</span>
+            <div class="phone-screen" id="mobile-screen">
+              <!-- State 1: Start Screen -->
+              <div class="app-ui" id="app-start">
+                <div class="app-icon">📱</div>
+                <h3 style="margin-bottom: 20px; color: #f8fafc;">Portfolio_App</h3>
+                <button class="btn btn-primary" onclick="bootApp()" style="padding: 8px 16px; font-size: 0.9rem;">Launch App</button>
+              </div>
+              
+              <!-- State 2: Loading Sequence (Hidden) -->
+              <div class="app-ui hidden" id="app-loading">
+                <div class="spinner"></div>
+                <p class="terminal-text">Compiling assets...</p>
+                <p class="terminal-text" style="color: #94a3b8; font-size: 0.75rem; margin-top: 5px;">Connecting to C# backend</p>
+              </div>
+              
+              <!-- State 3: Active App (Hidden) -->
+              <div class="app-ui hidden" id="app-active" style="padding: 0;">
+                <div class="mobile-header" style="color: #f8fafc;">Home</div>
+                <div class="mobile-body">
+                  <div class="skeleton-line"></div>
+                  <div class="skeleton-line short"></div>
+                  
+                  <div class="mobile-card">
+                    <strong>Status:</strong> Sync Successful
+                    <br><br>
+                    <span style="color: #94a3b8;">Data retrieved from MS SQL Server via secure API endpoint.</span>
+                  </div>
+                  
+                  <button class="btn btn-secondary" onclick="resetApp()" style="margin-top: 40px; font-size: 0.8rem; padding: 6px 12px;">Close App</button>
                 </div>
-                
-                <button class="btn btn-secondary" onclick="resetApp()" style="margin-top: 40px; font-size: 0.8rem; padding: 6px 12px;">Close App</button>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
-
-    </div>
-  </section>
 
     </div>
   </section>
@@ -324,6 +273,40 @@
     </div>
   </footer>
 
+  <!-- PROJECT APP WINDOW (MODAL) -->
+  <div id="project-modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-window">
+      <div class="modal-header">
+        <span class="modal-title-bar" id="modal-header-title">Project_Viewer.exe</span>
+        <button class="close-modal-btn" onclick="forceCloseModal()">✖</button>
+      </div>
+      
+      <div class="modal-content-split">
+        <!-- Left Side: Carousel -->
+        <div class="modal-carousel">
+          <img src="" alt="Project Screenshot" id="modal-img" class="carousel-img" onclick="openLightbox(this.src)">
+          <p class="click-reminder">🔍 Click image to enlarge</p>
+          <div class="carousel-controls">
+            <button onclick="modalPrevImage()">◀ Prev</button>
+            <button onclick="modalNextImage()">Next ▶</button>
+          </div>
+        </div>
+        
+        <!-- Right Side: Description -->
+        <div class="modal-info">
+          <h3 id="modal-title" style="color: #38bdf8; margin-bottom: 15px; font-size: 1.8rem;">Project Title</h3>
+          <p id="modal-desc" style="color: #cbd5e1; line-height: 1.6; font-size: 1.05rem;">Project description goes here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FULLSCREEN LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-lightbox">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+  </div>
+  
   <script>
     function toggleCard(clickedCard) {
       // 1. Find all cards on the page
@@ -382,25 +365,75 @@
       resetTimer(); 
     });
 
+    // --- X-RAY / MATRIX DEV MODE LOGIC ---
     const devToggle = document.getElementById('dev-toggle');
-    const jsonWrapper = document.getElementById('json-wrapper');
-    
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    let matrixInterval;
+
+    // The characters that will fall
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    let columns = window.innerWidth / fontSize;
+    let drops = [];
+
+    // Prepares the canvas size
+    function initMatrix() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      columns = canvas.width / fontSize;
+      drops = [];
+      for(let x = 0; x < columns; x++) { drops[x] = 1; }
+    }
+
+    // Draws the falling code frame by frame
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = '#0F0'; // Matrix Green
+      ctx.font = fontSize + 'px monospace';
+      
+      for(let i = 0; i < drops.length; i++) {
+        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        // Randomly reset a drop to the top of the screen
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    // Adjust the canvas if the user resizes their window
+    window.addEventListener('resize', () => {
+      if(document.body.classList.contains('xray-active')) initMatrix();
+    });
+
+    // The Toggle Trigger
     devToggle.addEventListener('click', () => {
-      jsonWrapper.classList.toggle('hidden');
-      if(jsonWrapper.classList.contains('hidden')) {
-        devToggle.innerText = "[ { } JSON View ]";
+      document.body.classList.toggle('xray-active');
+      
+      if(document.body.classList.contains('xray-active')) {
+        devToggle.innerText = "[ X ] Exit X-Ray";
+        canvas.classList.remove('hidden');
+        initMatrix();
+        matrixInterval = setInterval(drawMatrix, 33); // Runs at ~30 FPS
       } else {
-        devToggle.innerText = "[ X ] Exit Dev Mode";
+        devToggle.innerText = "[ { } Enter Dev Mode ]";
+        canvas.classList.add('hidden');
+        clearInterval(matrixInterval);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clears the screen
       }
     });
 
     // --- PROJECT CAROUSEL LOGIC ---
     
-    // Add your screenshot filenames here for each project
-    const projectImages = {
-      'docureq': ['docureq1.jpg', 'docureq2.jpg', 'docureq3.jpg', 'docureq4.jpg'],
-      'dost': ['dost1.jpg', 'dost2.jpg', 'dost3.jpg']
-    };
 
     // Keeps track of which image is currently showing
     const currentIndices = {
@@ -408,29 +441,87 @@
       'dost': 0
     };
 
-    // Toggles between the Diagram and the Carousel
-    function toggleCarousel(projectId) {
-      const defaultView = document.getElementById(`default-${projectId}`);
-      const carouselView = document.getElementById(`carousel-${projectId}`);
+    // --- APP WINDOW (MODAL) LOGIC ---
+    
+    // The master database of your projects
+    const projectData = {
+      'docureq': {
+        title: 'DocuReq Student Portal',
+        desc: 'A centralized web portal built entirely with C#, ASP.NET Core MVC, and Microsoft SQL Server. It features a robust relational database backend that handles document requests securely and efficiently, replacing manual campus workflows.',
+        images: ['docureq1.jpg', 'docureq2.jpg', 'docureq3.jpg']
+      },
+      'dost': {
+        title: 'DOST Rental Tracker',
+        desc: 'An automated management system built for the Department of Science and Technology. Engineered using Google Apps Script and Google Sheets, it acts as a lightweight custom database to track equipment deployment and rental statuses.',
+        images: ['dost1.jpg', 'dost2.jpg']
+      }
+    };
+
+    let activeProjectKey = '';
+    let activeImageIndex = 0;
+
+    function openModal(projectKey) {
+      activeProjectKey = projectKey;
+      activeImageIndex = 0;
+      const data = projectData[projectKey];
+
+      // Populate the text
+      document.getElementById('modal-title').innerText = data.title;
+      document.getElementById('modal-desc').innerText = data.desc;
       
-      defaultView.classList.toggle('hidden');
-      carouselView.classList.toggle('hidden');
+      // Load the first image
+      const imgElement = document.getElementById('modal-img');
+      imgElement.src = data.images[0];
+      
+      // Show the window
+      document.getElementById('project-modal').classList.add('show');
     }
 
-    // Goes to the previous picture
-    function prevImage(projectId) {
-      const images = projectImages[projectId];
-      // The math here ensures it loops backward to the last image smoothly
-      currentIndices[projectId] = (currentIndices[projectId] - 1 + images.length) % images.length;
-      document.getElementById(`img-${projectId}`).src = images[currentIndices[projectId]];
+    function forceCloseModal() {
+      document.getElementById('project-modal').classList.remove('show');
     }
 
-    // Goes to the next picture
-    function nextImage(projectId) {
-      const images = projectImages[projectId];
-      // Loops back to the first image when it reaches the end
-      currentIndices[projectId] = (currentIndices[projectId] + 1) % images.length;
-      document.getElementById(`img-${projectId}`).src = images[currentIndices[projectId]];
+    // Closes modal if you click the dark background outside the window
+    function closeModal(event) {
+      if (event.target.id === 'project-modal') forceCloseModal();
+    }
+
+    function modalPrevImage() {
+      const imgElement = document.getElementById('modal-img');
+      const images = projectData[activeProjectKey].images;
+      
+      imgElement.classList.add('fade-out');
+      setTimeout(() => {
+        activeImageIndex = (activeImageIndex - 1 + images.length) % images.length;
+        imgElement.src = images[activeImageIndex];
+        imgElement.classList.remove('fade-out');
+      }, 200);
+    }
+
+    function modalNextImage() {
+      const imgElement = document.getElementById('modal-img');
+      const images = projectData[activeProjectKey].images;
+      
+      imgElement.classList.add('fade-out');
+      setTimeout(() => {
+        activeImageIndex = (activeImageIndex + 1) % images.length;
+        imgElement.src = images[activeImageIndex];
+        imgElement.classList.remove('fade-out');
+      }, 200);
+    }
+
+    // --- LIGHTBOX LOGIC ---
+    function openLightbox(imageSrc) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      
+      lightboxImg.src = imageSrc;         // Put the clicked image into the lightbox
+      lightbox.classList.add('show');     // Trigger the CSS animation to show it
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('show');  // Trigger the CSS animation to hide it
     }
 
     // --- MOBILE APP SIMULATOR LOGIC ---
@@ -451,6 +542,7 @@
       document.getElementById('app-active').classList.add('hidden');
       document.getElementById('app-start').classList.remove('hidden');
     }
+
   </script>
 
 </body>
