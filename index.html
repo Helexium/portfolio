@@ -7,6 +7,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- DEVELOPER MODE TOGGLE -->
+  <button id="dev-toggle" class="dev-btn">[ { } JSON View ]</button>
+  
+  <div id="json-wrapper" class="hidden">
+    <div class="ide-window">
+      <div class="ide-header">
+        <div class="mac-buttons">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        </div>
+        <span class="ide-title">portfolio-data.json - VS Code</span>
+      </div>
+      <div class="ide-body">
+    <pre><code><span class="brace">{</span>
+      <span class="key">"developer"</span>: <span class="string">"Shimeih Klein Montefalcon"</span>,
+      <span class="key">"title"</span>: <span class="string">"Software Engineer & Architect"</span>,
+      <span class="key">"status"</span>: <span class="string">"Ready for Deployment"</span>,
+      <span class="key">"stack"</span>: <span class="brace">{</span>
+        <span class="key">"backend"</span>: <span class="bracket">[</span><span class="string">"C#"</span>, <span class="string">"ASP.NET Core MVC"</span>, <span class="string">"Java"</span><span class="bracket">]</span>,
+        <span class="key">"database"</span>: <span class="bracket">[</span><span class="string">"MS SQL Server"</span>, <span class="string">"MySQL"</span><span class="bracket">]</span>,
+        <span class="key">"frontend"</span>: <span class="bracket">[</span><span class="string">"React"</span>, <span class="string">"Tailwind CSS"</span><span class="bracket">]</span>
+      <span class="brace">}</span>
+    <span class="brace">}</span></code></pre>
+          </div>
+        </div>
+  </div>
 
 <!-- HERO SECTION: THE TERMINAL -->
   <!-- HERO SECTION: THE TERMINAL -->
@@ -149,8 +174,12 @@
           <h3>DocuReq Student Portal</h3>
           <p>Centralized web portal built with C#, ASP.NET Core MVC, and SQL Server.</p>
         </div>
-        <div class="project-image">
-          [ Image Placeholder ]
+        <div class="project-image architecture-diagram">
+          <div class="arch-node">User Interface</div>
+          <div class="arch-wire"><div class="data-packet"></div></div>
+          <div class="arch-node backend-node">ASP.NET Core MVC</div>
+          <div class="arch-wire"><div class="data-packet delay"></div></div>
+          <div class="arch-node db-node">MS SQL Server</div>
         </div>
       </div>
 
@@ -160,8 +189,12 @@
           <h3>DOST Rental Tracker</h3>
           <p>Automated management system built using Google Apps Script.</p>
         </div>
-        <div class="project-image">
-          [ Image Placeholder ]
+        <div class="project-image architecture-diagram">
+          <div class="arch-node">User Interface</div>
+          <div class="arch-wire"><div class="data-packet"></div></div>
+          <div class="arch-node backend-node">ASP.NET Core MVC</div>
+          <div class="arch-wire"><div class="data-packet delay"></div></div>
+          <div class="arch-node db-node">MS SQL Server</div>
         </div>
       </div>
 
@@ -233,6 +266,18 @@
     profileTrigger.addEventListener('click', () => {
       swapImage();
       resetTimer(); 
+    });
+
+    const devToggle = document.getElementById('dev-toggle');
+    const jsonWrapper = document.getElementById('json-wrapper');
+    
+    devToggle.addEventListener('click', () => {
+      jsonWrapper.classList.toggle('hidden');
+      if(jsonWrapper.classList.contains('hidden')) {
+        devToggle.innerText = "[ { } JSON View ]";
+      } else {
+        devToggle.innerText = "[ X ] Exit Dev Mode";
+      }
     });
   </script>
 
