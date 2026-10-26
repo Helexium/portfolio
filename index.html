@@ -168,35 +168,90 @@
     <div class="container">
       <h2 class="section-title accent-color">Featured Projects</h2>
       
-      <!-- Project 1 Placeholder -->
+      <!-- Project 1: DocuReq -->
       <div class="project-card">
         <div class="project-info">
           <h3>DocuReq Student Portal</h3>
           <p>Centralized web portal built with C#, ASP.NET Core MVC, and SQL Server.</p>
+          <button class="btn btn-secondary" style="margin-top: 20px; padding: 8px 16px; font-size: 0.9rem;" onclick="toggleCarousel('docureq')">View Screenshots</button>
         </div>
-        <div class="project-image architecture-diagram">
-          <div class="arch-node">User Interface</div>
-          <div class="arch-wire"><div class="data-packet"></div></div>
-          <div class="arch-node backend-node">ASP.NET Core MVC</div>
-          <div class="arch-wire"><div class="data-packet delay"></div></div>
-          <div class="arch-node db-node">MS SQL Server</div>
+        
+        <div class="project-image">
+          <!-- Default View (Architecture Diagram) -->
+          <div class="architecture-diagram" id="default-docureq">
+            <div class="arch-node">User Interface</div>
+            <div class="arch-wire"><div class="data-packet"></div></div>
+            <div class="arch-node backend-node">ASP.NET Core MVC</div>
+            <div class="arch-wire"><div class="data-packet delay"></div></div>
+            <div class="arch-node db-node">MS SQL Server</div>
+          </div>
+          
+          <!-- Carousel View (Hidden Initially) -->
+          <div class="carousel-view hidden" id="carousel-docureq">
+            <button class="close-carousel" onclick="toggleCarousel('docureq')">✖ Back to Diagram</button>
+            <img src="docureq1.jpg" alt="DocuReq Screenshot" class="carousel-img" id="img-docureq">
+            <div class="carousel-controls">
+              <button onclick="prevImage('docureq')">◀ Prev</button>
+              <button onclick="nextImage('docureq')">Next ▶</button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Project 2 Placeholder -->
+      <!-- Project 2: DOST Tracker -->
       <div class="project-card reverse-layout">
         <div class="project-info">
           <h3>DOST Rental Tracker</h3>
           <p>Automated management system built using Google Apps Script.</p>
+          <button class="btn btn-secondary" style="margin-top: 20px; padding: 8px 16px; font-size: 0.9rem;" onclick="toggleCarousel('dost')">View Screenshots</button>
         </div>
-        <div class="project-image architecture-diagram">
-          <div class="arch-node">User Interface</div>
-          <div class="arch-wire"><div class="data-packet"></div></div>
-          <div class="arch-node backend-node">ASP.NET Core MVC</div>
-          <div class="arch-wire"><div class="data-packet delay"></div></div>
-          <div class="arch-node db-node">MS SQL Server</div>
+        
+        <div class="project-image">
+          <!-- Default View (Architecture Diagram) -->
+          <div class="architecture-diagram" id="default-dost">
+            <div class="arch-node">User Interface</div>
+            <div class="arch-wire"><div class="data-packet"></div></div>
+            <div class="arch-node apps-script-node">Google Apps Script</div>
+            <div class="arch-wire"><div class="data-packet delay"></div></div>
+            <div class="arch-node sheets-node">Google Sheets</div>
+          </div>
+
+          <!-- Carousel View (Hidden Initially) -->
+          <div class="carousel-view hidden" id="carousel-dost">
+            <button class="close-carousel" onclick="toggleCarousel('dost')">✖ Back to Diagram</button>
+            <img src="dost1.jpg" alt="DOST Tracker Screenshot" class="carousel-img" id="img-dost">
+            <div class="carousel-controls">
+              <button onclick="prevImage('dost')">◀ Prev</button>
+              <button onclick="nextImage('dost')">Next ▶</button>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- ACTIVE EXPLORATION: GAME DEV -->
+  <section id="exploration" class="section-dark">
+    <div class="container center-text">
+      <h2 class="section-title accent-color">Current Sandbox: Game Development</h2>
+      <p style="color: #94a3b8; max-width: 700px; margin: 0 auto 40px auto; font-size: 1.1rem; line-height: 1.6;">
+        While my foundation is in enterprise backend architecture, I am currently expanding my engineering skill set into game development. Using the Godot Engine and C#, I am experimenting with custom movement mechanics, physics interactions, and state machines.
+      </p>
+      
+      <div class="video-showcase-grid">
+        <!-- Video 1 -->
+        <div class="video-card">
+          <!-- Replace 'godot1.mp4' with your actual video file name -->
+          <video src="godot1.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+          <div class="video-caption">▶ Testing Physics & Collision</div>
+        </div>
+        
+        <!-- Video 2 -->
+        <div class="video-card">
+          <!-- Replace 'godot2.mp4' with your actual video file name -->
+          <video src="godot2.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+          <div class="video-caption">▶ Movement State Machine Logic</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
     </div>
   </section>
@@ -279,6 +334,45 @@
         devToggle.innerText = "[ X ] Exit Dev Mode";
       }
     });
+
+    // --- PROJECT CAROUSEL LOGIC ---
+    
+    // Add your screenshot filenames here for each project
+    const projectImages = {
+      'docureq': ['docureq1.jpg', 'docureq2.jpg', 'docureq3.jpg', 'docureq4.jpg'],
+      'dost': ['dost1.jpg', 'dost2.jpg', 'dost3.jpg']
+    };
+
+    // Keeps track of which image is currently showing
+    const currentIndices = {
+      'docureq': 0,
+      'dost': 0
+    };
+
+    // Toggles between the Diagram and the Carousel
+    function toggleCarousel(projectId) {
+      const defaultView = document.getElementById(`default-${projectId}`);
+      const carouselView = document.getElementById(`carousel-${projectId}`);
+      
+      defaultView.classList.toggle('hidden');
+      carouselView.classList.toggle('hidden');
+    }
+
+    // Goes to the previous picture
+    function prevImage(projectId) {
+      const images = projectImages[projectId];
+      // The math here ensures it loops backward to the last image smoothly
+      currentIndices[projectId] = (currentIndices[projectId] - 1 + images.length) % images.length;
+      document.getElementById(`img-${projectId}`).src = images[currentIndices[projectId]];
+    }
+
+    // Goes to the next picture
+    function nextImage(projectId) {
+      const images = projectImages[projectId];
+      // Loops back to the first image when it reaches the end
+      currentIndices[projectId] = (currentIndices[projectId] + 1) % images.length;
+      document.getElementById(`img-${projectId}`).src = images[currentIndices[projectId]];
+    }
   </script>
 
 </body>

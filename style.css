@@ -92,6 +92,9 @@ html {
   overflow: hidden;
   border: 1px solid #334155;
 }
+.project-card.reverse-layout {
+  flex-direction: row-reverse;
+}
 .project-info, .project-image { padding: 40px; width: 50%; }
 .project-image { background-color: #334155; display: flex; align-items: center; justify-content: center; color: #94a3b8;}
 
@@ -392,7 +395,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #0f172a;
+  background-color: transparent; /* Makes it blend perfectly */
 }
 
 .arch-node {
@@ -407,6 +410,9 @@ html {
 
 .backend-node { border-color: #38bdf8; color: #38bdf8; }
 .db-node { border-color: #27c93f; color: #27c93f; }
+
+.apps-script-node { border-color: #fbbc04; color: #fbbc04; }
+.sheets-node { border-color: #34a853; color: #34a853; }
 
 .arch-wire {
   width: 2px;
@@ -435,4 +441,97 @@ html {
 @keyframes flow {
   0% { top: 0; opacity: 1; }
   100% { top: 40px; opacity: 0; }
+}
+
+/* --- PROJECT CAROUSEL VIEWS --- */
+.carousel-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 250px; /* Keeps the box height consistent */
+  object-fit: contain; /* Ensures the whole screenshot is visible without cutting it off */
+  background-color: #0f172a;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  margin-bottom: 15px;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 15px;
+}
+
+.carousel-controls button {
+  background-color: transparent;
+  color: #38bdf8;
+  border: 1px solid #38bdf8;
+  padding: 6px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.carousel-controls button:hover {
+  background-color: #38bdf8;
+  color: #0f172a;
+}
+
+.close-carousel {
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  align-self: flex-end; /* Pushes the close button to the top right */
+  transition: color 0.2s;
+}
+
+.close-carousel:hover {
+  color: #ef4444; /* Turns red to indicate closing */
+}
+
+/* --- VIDEO SHOWCASE (GAME DEV) --- */
+.video-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.video-card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  border-color: #38bdf8;
+}
+
+.showcase-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid #334155;
+  background-color: #000; /* Acts as a fallback background while loading */
+}
+
+.video-caption {
+  padding: 15px;
+  color: #f8fafc;
+  font-family: 'Consolas', monospace; /* Uses the dev-style font for the captions */
+  font-size: 0.95rem;
+  background-color: #1e293b;
+  text-align: left;
 }
