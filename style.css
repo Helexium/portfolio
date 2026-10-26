@@ -172,29 +172,198 @@ html {
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* --- ADVANCED SKILLS GRID --- */
-.advanced-skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-  margin-top: 40px;
-}
-
-/* --- UPDATED TECH CARDS FOR CLICK ANIMATION --- */
-.tech-card {
+/* --- NETWORK TOPOLOGY MAP --- */
+.network-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 500px;
+  margin: 0 auto;
   background-color: #0f172a;
-  padding: 30px;
-  border-radius: 10px;
   border: 1px solid #334155;
-  cursor: pointer; /* Changes mouse to a clicking finger */
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Sleek bounce effect */
+  border-radius: 12px;
+  overflow: hidden; 
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3) inset;
+  cursor: grab;
+  
+  /* Prevents text highlighting while dragging */
+  user-select: none;
+  -webkit-user-select: none; /* For Safari */
 }
 
-.tech-card:hover {
-  transform: translateY(-5px);
-  border-color: #38bdf8;
+.network-viewport:active {
+  cursor: grabbing; /* Closes the hand when clicked */
 }
+
+.network-map {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* Let CSS handle the smooth centering, but let JS instantly drag */
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+/* Disable the transition while dragging so it doesn't lag behind the mouse */
+.network-viewport.is-dragging .network-map {
+  transition: none;
+}
+
+/* The SVG Wires */
+.network-wires {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+}
+.wire {
+  stroke: #334155;
+  stroke-width: 0.5;
+  stroke-dasharray: 4;
+  animation: dash 20s linear infinite;
+}
+@keyframes dash { to { stroke-dashoffset: -100; } }
+
+/* The Nodes */
+.net-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: opacity 0.4s ease;
+}
+
+.center-node {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 20px rgba(56,189,248,0.3);
+  overflow: hidden;
+  z-index: 5;
+}
+.hub-img { width: 100%; height: 100%; object-fit: cover; }
+
+.category-node {
+  background-color: #1e293b;
+  border: 1px solid #38bdf8;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: all 0.3s;
+}
+
+.category-node:hover {
+  background-color: #38bdf8;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.category-node:hover .label { color: #0f172a; font-weight: bold; }
+
+.node-content {
+  display: flex; flex-direction: column; align-items: center;
+}
+.node-content .icon { font-size: 1.5rem; margin-bottom: 5px; }
+.node-content .label { color: #f8fafc; font-size: 0.85rem; font-family: 'Consolas', monospace; }
+
+/* --- THE DROPDOWN LISTS --- */
+.tech-dropdown {
+  position: absolute;
+  top: 110%; /* Drops it just below the node */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  max-height: 0;
+  opacity: 0;
+  background-color: #0f172a;
+  border: 1px solid #38bdf8;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* When the node is clicked, expand the window */
+.category-node.active .tech-dropdown {
+  max-height: 120px; /* Fixed height for the window */
+  opacity: 1;
+  padding: 5px;
+  pointer-events: all;
+}
+
+.scrolling-wrapper {
+  height: 100%;
+  overflow: hidden; /* Hides the scrollbar */
+  position: relative;
+}
+
+.scrolling-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  /* Removed 'alternate' so it only flows in one direction */
+  animation: infiniteScroll 8s linear infinite; 
+}
+
+/* Pauses the auto-scroll when you hover, allowing you to manual scroll */
+.category-node.active .tech-dropdown:hover .scrolling-content {
+  animation-play-state: paused;
+}
+
+/* 
+  Because we are going to double the content with JS, 
+  scrolling exactly -50% up will perfectly align the end of the first list 
+  with the start of the second list, creating an invisible loop! 
+*/
+@keyframes infiniteScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); } 
+}
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1e293b;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #334155;
+}
+
+.tech-item img {
+  width: 16px; height: 16px; object-fit: contain;
+}
+
+.tech-item span {
+  color: #38bdf8;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Consolas', monospace;
+}
+
+/* The math to scroll the list up inside the window */
+@keyframes autoScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); } 
+}
+
+/* Fallback text if logo is missing */
+.sub-node span { font-size: 0.6rem; color: #38bdf8; font-weight: bold; }
+.sub-node img { width: 70%; height: 70%; object-fit: contain; position: absolute; z-index: 2; }
+
+/* When a node is clicked, push the tools into orbit! */
+.category-node.active .sub-node {
+  opacity: 1;
+  pointer-events: all;
+  /* Math magic: Rotates out, pushes 80px away, then counter-rotates so the logo stays upright! */
+  transform: rotate(var(--angle)) translateX(80px) rotate(calc(var(--angle) * -1));
+}
+
+/* Dim other nodes when zoomed in */
+.network-viewport.zoomed .net-node:not(.active):not(.center-node) {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.network-viewport.zoomed .wire { stroke: #1e293b; }
 
 /* The Hidden Details */
 .card-details {
@@ -847,4 +1016,12 @@ body.xray-active .profile-wrapper {
 
 @media (max-width: 768px) {
   .modal-content-split { flex-direction: column; }
+}
+/* --- EASTER EGG FLING ANIMATION --- */
+.network-map.flung {
+  /* Flings the map down and to the right, spinning 720 degrees and shrinking */
+  transform: translate(150%, 150%) rotate(720deg) scale(0.2) !important;
+  transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 1s !important;
+  opacity: 0;
+  pointer-events: none;
 }

@@ -25,7 +25,7 @@
         <div class="profile-name-group">
           <div class="profile-wrapper" id="profile-trigger" title="Click to swap image!">
             <!-- Normal UI -->
-            <img src="pic1.jpg" alt="Shimeih Klein Montefalcon" id="profile-pic" class="profile-img">
+            <img src="pics/pic1.jpg" alt="Shimeih Klein Montefalcon" id="profile-pic" class="profile-img">
             
             <!-- Skeletal Code (Revealed in X-Ray Mode) -->
             <div class="xray-code">
@@ -67,92 +67,161 @@
     </div>
   </section>
 
-  <!-- SKILLS SECTION: THE ARCHITECTURE GRID -->
+<!-- TECHNICAL ARCHITECTURE: NETWORK MAP -->
   <section id="skills" class="section-light">
-    <div class="container">
+    <div class="container center-text">
       <h2 class="section-title">Technical Architecture</h2>
-      <div class="advanced-skills-grid">
-  
-        <!-- Backend Card -->
-        <div class="tech-card" onclick="toggleCard(this)">
-            <div class="card-icon">⚙️</div>
-            <h3>Backend & Logic</h3>
-            <p>C#, ASP.NET Core MVC, Node.js, Java</p>
-            
-            <div class="card-details">
-            <hr>
-            <p class="detail-text">Architected the <strong>DocuReq student portal</strong> backend. Automated data workflows for DOST using Google Apps Script and low-level C.</p>
-            <div class="tech-tags">
-                <span>C#</span> <span>ASP.NET Core</span> <span>Java</span> <span>Apps Script</span>
-            </div>
-            </div>
+      <p style="color: #94a3b8; margin-bottom: 40px;">Interactive System Topology. Click a core domain to analyze sub-systems.</p>
+      
+      <div class="network-viewport">
+        
+        <!-- EASTER EGG: The Hidden Background (Behind the map) -->
+        <div id="easter-egg-bg" class="hidden" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #0f172a; z-index: 0;">
+          <img src="happycat.gif" alt="Dancing Cat" style="width: 150px; border-radius: 10px;">
+          <h3 style="color: #38bdf8; margin-top: 15px; font-family: 'Consolas', monospace;">You found the secret!</h3>
         </div>
+        
+        <!-- EASTER EGG: The Hint Text -->
+        <div id="easter-egg-hint" class="hidden" style="position: absolute; top: 20px; left: 20px; color: #0f0; font-family: 'Consolas', monospace; font-size: 0.9rem; z-index: 50; text-shadow: 0 0 5px #0f0; pointer-events: none;">Hmm? something is here...</div>
+        <button id="reset-map" class="btn btn-secondary hidden" onclick="resetNetwork()" style="position: absolute; top: 10px; right: 10px; z-index: 100; font-size: 0.8rem; padding: 5px 10px;">[ - ] Zoom Out</button>
+        
+        <div class="network-map" id="network-map">
+          
+          <!-- The Connecting Wires -->
+          <svg class="network-wires" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <!-- Center to Top Middle (Version Control) - NEW -->
+            <line x1="50" y1="50" x2="50" y2="15" class="wire" />
+            <!-- Center to Top Left (Backend) -->
+            <line x1="50" y1="50" x2="25" y2="25" class="wire" />
+            <!-- Center to Top Right (Database) -->
+            <line x1="50" y1="50" x2="75" y2="25" class="wire" />
+            <!-- Center to Bottom Left (Game Dev) -->
+            <line x1="50" y1="50" x2="25" y2="75" class="wire" />
+            <!-- Center to Bottom Right (Frontend) -->
+            <line x1="50" y1="50" x2="75" y2="75" class="wire" />
+            <!-- Center to Bottom Middle (Design & Leadership) -->
+            <line x1="50" y1="50" x2="50" y2="85" class="wire" />
+          </svg>
 
-        <!-- Database Card -->
-        <div class="tech-card" onclick="toggleCard(this)">
-            <div class="card-icon">🗄️</div>
-            <h3>Database & Data</h3>
-            <p>Microsoft SQL Server, MySQL, Data Processing</p>
-            
-            <div class="card-details">
-            <hr>
-            <p class="detail-text">Designed relational tables and queried datasets for enterprise applications. Processed academic research datasets using Jamovi (ANOVA, regression).</p>
-            <div class="tech-tags">
-                <span>SSMS</span> <span>MySQL</span> <span>Jamovi</span> <span>Data Architecture</span>
-            </div>
-            </div>
-        </div>
+          <!-- The Center Hub (You) -->
+          <div class="net-node center-node" style="left: 50%; top: 50%;">
+            <img src="pics/pic1.jpg" alt="Center Hub" class="hub-img">
+          </div>
 
-        <!-- Frontend Card -->
-        <div class="tech-card" onclick="toggleCard(this)">
-            <div class="card-icon">💻</div>
-            <h3>Frontend & Web</h3>
-            <p>React, Tailwind CSS, HTML/CSS/JS, Bootstrap</p>
-            
-            <div class="card-details">
-            <hr>
-            <p class="detail-text">Built responsive, modern UIs including a promotional web application for a mobile drinking bar business using modern frameworks.</p>
-            <div class="tech-tags">
-                <span>React</span> <span>Tailwind</span> <span>Bootstrap</span> <span>Vanilla JS</span>
+          <!-- 1. Version Control Node (NEW - Top Center) -->
+          <div class="net-node category-node" style="left: 50%; top: 15%;" onclick="focusNode(this, 50, 15)">
+            <div class="node-content">
+              <span class="icon">🔄</span>
+              <span class="label">Version Control</span>
             </div>
+            <div class="tech-dropdown">
+              <div class="scrolling-wrapper">
+                <div class="scrolling-content">
+                  <div class="tech-item"><img src="git.png" onerror="this.style.display='none'"><span>Git</span></div>
+                  <div class="tech-item"><img src="github.png" onerror="this.style.display='none'"><span>GitHub</span></div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- Desktop & Game Card -->
-        <div class="tech-card" onclick="toggleCard(this)">
-            <div class="card-icon">🎮</div>
-            <h3>Desktop & Game Dev</h3>
-            <p>Godot Engine (C#), DevExpress, .NET</p>
-            
-            <div class="card-details">
-            <hr>
-            <p class="detail-text">Developed a QR code attendance tracking system for school ROTC using DevExpress. Exploring Godot engine physics and C# scripting.</p>
-            <div class="tech-tags">
-                <span>Godot</span> <span>DevExpress</span> <span>.NET WinForms</span>
+          <!-- 2. Backend Node (Updated) -->
+          <div class="net-node category-node" style="left: 25%; top: 25%;" onclick="focusNode(this, 25, 25)">
+            <div class="node-content">
+              <span class="icon">⚙️</span>
+              <span class="label">Backend</span>
             </div>
+            <div class="tech-dropdown">
+              <div class="scrolling-wrapper">
+                <div class="scrolling-content">
+                  <div class="tech-item"><img src="logos/csharp.png" onerror="this.style.display='none'"><span>C#</span></div>
+                  <div class="tech-item"><img src="logos/aspnet.png" onerror="this.style.display='none'"><span>ASP.NET</span></div>
+                  <div class="tech-item"><img src="logos/php.png" onerror="this.style.display='none'"><span>PHP</span></div>
+                  <div class="tech-item"><img src="logos/laravel.png" onerror="this.style.display='none'"><span>Laravel</span></div>
+                  <div class="tech-item"><img src="logos/nodejs.png" onerror="this.style.display='none'"><span>Node.js</span></div>
+                  <div class="tech-item"><img src="logos/java.png" onerror="this.style.display='none'"><span>Java</span></div>
+                  <div class="tech-item"><img src="logos/appscript.png" onerror="this.style.display='none'"><span>Apps Script</span></div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- Design Card -->
-        <div class="tech-card" onclick="toggleCard(this)">
-            <div class="card-icon">🎨</div>
-            <h3>Design & Leadership</h3>
-            <p>Graphic Design, Project Management</p>
-            
-            <div class="card-details">
-            <hr>
-            <p class="detail-text">Managed media coverage and created promotional posters for Pasiklaban 2026. Executed LEaP! community outreach programs.</p>
-            <div class="tech-tags">
-                <span>Graphic Design</span> <span>Leadership</span> <span>Project Management</span>
+          <!-- 3. Database Node -->
+          <div class="net-node category-node" style="left: 75%; top: 25%;" onclick="focusNode(this, 75, 25)">
+            <div class="node-content">
+              <span class="icon">🗄️</span>
+              <span class="label">Database</span>
             </div>
+            <div class="tech-dropdown">
+              <div class="scrolling-wrapper">
+                <div class="scrolling-content">
+                  <div class="tech-item"><img src="logos/sql.png" onerror="this.style.display='none'"><span>MS SQL</span></div>
+                  <div class="tech-item"><img src="logos/mysql.png" onerror="this.style.display='none'"><span>MySQL</span></div>
+                  <div class="tech-item"><img src="logos/ssms.png" onerror="this.style.display='none'"><span>SSMS</span></div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+
+          <!-- 4. Desktop/Game Node -->
+          <div class="net-node category-node" style="left: 25%; top: 75%;" onclick="focusNode(this, 25, 75)">
+            <div class="node-content">
+              <span class="icon">🎮</span>
+              <span class="label">Game Dev</span>
+            </div>
+            <div class="tech-dropdown">
+              <div class="scrolling-wrapper">
+                <div class="scrolling-content">
+                  <div class="tech-item"><img src="logos/godot.png" onerror="this.style.display='none'"><span>Godot</span></div>
+                  <div class="tech-item"><img src="logos/devexpress.png" onerror="this.style.display='none'"><span>DevEx</span></div>
+                  <div class="tech-item"><img src="logos/dotnet.png" onerror="this.style.display='none'"><span>.NET</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Frontend Node (Updated) -->
+          <div class="net-node category-node" style="left: 75%; top: 75%;" onclick="focusNode(this, 75, 75)">
+            <div class="node-content">
+              <span class="icon">💻</span>
+              <span class="label">Frontend</span>
+            </div>
+            <div class="tech-dropdown">
+              <div class="scrolling-wrapper">
+                <div class="scrolling-content">
+                  <div class="tech-item"><img src="logos/html.png" onerror="this.style.display='none'"><span>HTML5</span></div>
+                  <div class="tech-item"><img src="logos/css3.png" onerror="this.style.display='none'"><span>CSS3</span></div>
+                  <div class="tech-item"><img src="logos/javascript.png" onerror="this.style.display='none'"><span>JavaScript</span></div>
+                  <div class="tech-item"><img src="logos/typescript.png" onerror="this.style.display='none'"><span>TypeScript</span></div>
+                  <div class="tech-item"><img src="logos/react.png" onerror="this.style.display='none'"><span>React</span></div>
+                  <div class="tech-item"><img src="logos/tailwind.png" onerror="this.style.display='none'"><span>Tailwind</span></div>
+                  <div class="tech-item"><img src="logos/bootstrap.png" onerror="this.style.display='none'"><span>Bootstrap</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Design & Leadership Node -->
+          <div class="net-node category-node" style="left: 50%; top: 85%;" onclick="focusNode(this, 50, 85)">
+            <div class="node-content">
+              <span class="icon">🎨</span>
+              <span class="label">Design</span>
+            </div>
+            <div class="tech-dropdown">
+              <div class="scrolling-wrapper">
+                <div class="scrolling-content">
+                  <div class="tech-item"><img src="design.png" onerror="this.style.display='none'"><span>Graphics</span></div>
+                  <div class="tech-item"><img src="manage.png" onerror="this.style.display='none'"><span>Leadership</span></div>
+                  <div class="tech-item"><img src="pm.png" onerror="this.style.display='none'"><span>Project Mgt</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
+      </div>
     </div>
   </section>
 
-  <!-- PROJECTS SECTION -->
   <!-- PROJECTS SECTION (MINIMALIST BUTTON TRIGGERS) -->
   <section id="projects" class="section-dark">
     <div class="container center-text">
@@ -195,11 +264,11 @@
         
         <div class="video-showcase-grid">
           <div class="video-card">
-            <video src="godot1.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+            <video src="vids/godot1.mp4" autoplay loop muted playsinline class="showcase-video"></video>
             <div class="video-caption">▶ Basic Physics and Movements</div>
           </div>
           <div class="video-card">
-            <video src="godot2.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+            <video src="vids/godot2.mp4" autoplay loop muted playsinline class="showcase-video"></video>
             <div class="video-caption">▶ Animations and Game Logic</div>
           </div>
         </div>
@@ -328,7 +397,7 @@
     }
     // --- PROFILE PICTURE LOGIC ---
     // Insert the exact file names of your 3 pictures here
-    const images = ['pic1.jpg', 'pic2.jpg', 'pic3.jpg'];
+    const images = ['pics/pic1.jpg', 'pics/pic2.jpg', 'pics/pic3.jpg'];
     let currentImgIndex = 0;
     
     const profilePic = document.getElementById('profile-pic');
@@ -448,12 +517,12 @@
       'docureq': {
         title: 'DocuReq Student Portal',
         desc: 'A centralized web portal built entirely with C#, ASP.NET Core MVC, and Microsoft SQL Server. It features a robust relational database backend that handles document requests securely and efficiently, replacing manual campus workflows.',
-        images: ['docureq1.jpg', 'docureq2.jpg', 'docureq3.jpg']
+        images: ['screenshots/docureq1.png', 'screenshots/docureq2.png', 'screenshots/docureq3.png', 'screenshots/docureq4.png', 'screenshots/docureq5.png', 'screenshots/docureq6.png', 'screenshots/docureq7.png', 'screenshots/docureq8.png', 'screenshots/docureq9.png']
       },
       'dost': {
         title: 'DOST Rental Tracker',
         desc: 'An automated management system built for the Department of Science and Technology. Engineered using Google Apps Script and Google Sheets, it acts as a lightweight custom database to track equipment deployment and rental statuses.',
-        images: ['dost1.jpg', 'dost2.jpg']
+        images: ['screenshots/dost1.png', 'screenshots/dost2.png', 'screenshots/dost3.png', 'screenshots/dost4.png', 'screenshots/dost5.png', 'screenshots/dost6.png']
       }
     };
 
@@ -543,6 +612,205 @@
       document.getElementById('app-start').classList.remove('hidden');
     }
 
+    // --- ADVANCED NETWORK MAP ENGINE ---
+    const networkMap = document.getElementById('network-map');
+    const networkViewport = document.querySelector('.network-viewport');
+    const resetBtn = document.getElementById('reset-map');
+
+    let scale = 1;
+    let currentX = 0;
+    let currentY = 0;
+    
+    // Dragging State Variables
+    let isDragging = false;
+    let startMouseX, startMouseY;
+
+    // Easter Egg Variables
+    let eggTimer = null;
+    let isEggTriggered = false;
+
+    // Apply the math to the screen
+    function updateTransform() {
+      networkMap.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
+    }
+
+    // 3. Free-Roam Mouse Wheel Zoom Logic
+    networkViewport.addEventListener('wheel', (e) => {
+      // Prevent the main webpage from scrolling when zooming the map
+      e.preventDefault(); 
+      
+      const zoomSpeed = 0.15; // How fast it zooms per scroll tick
+      
+      // If deltaY is negative, they are scrolling UP (Zoom In)
+      if (e.deltaY < 0) {
+        scale += zoomSpeed;
+      } 
+      // If deltaY is positive, they are scrolling DOWN (Zoom Out)
+      else {
+        scale -= zoomSpeed;
+      }
+      
+      // Constrain the zoom limits: Minimum 1x (normal), Maximum 3x (super close)
+      scale = Math.max(1, Math.min(scale, 3));
+      
+      // Apply the zoom
+      updateTransform();
+      
+      // If the user zooms all the way back out to normal size, reset the menus
+      if (scale === 1) {
+        resetNetwork();
+      } else {
+        // Show the reset button so they can click to instantly zoom out
+        resetBtn.classList.remove('hidden');
+      }
+    });
+
+    // 4. Click Outside to Reset Logic
+    document.addEventListener('click', (e) => {
+      // Check if the map is currently zoomed in
+      const isZoomed = networkViewport.classList.contains('zoomed');
+      
+      // If we clicked somewhere on the screen that is NOT inside the network viewport
+      if (isZoomed && !networkViewport.contains(e.target)) {
+        resetNetwork();
+      }
+    });
+    
+    // 5. Seamless Infinite Scroll Cloner
+    // This secretly duplicates the items in your tech dropdowns so they can loop endlessly
+    document.querySelectorAll('.scrolling-content').forEach(content => {
+      // Takes whatever is inside the list and copies it directly below itself
+      content.innerHTML += content.innerHTML;
+    });
+
+    // 1. Centering Zoom Logic (Fixes the out-of-bounds issue)
+    function focusNode(clickedNode, xPercent, yPercent) {
+      document.querySelectorAll('.category-node').forEach(node => node.classList.remove('active'));
+      clickedNode.classList.add('active');
+      networkViewport.classList.add('zoomed');
+      
+      scale = 1.6; // Slightly zoomed out so sub-nodes fit perfectly
+      
+      // Calculate how far to pan to put the clicked node in the dead center
+      const mapWidth = networkViewport.offsetWidth;
+      const mapHeight = networkViewport.offsetHeight;
+      
+      currentX = ((50 - xPercent) / 100) * mapWidth * scale;
+      currentY = ((50 - yPercent) / 100) * mapHeight * scale;
+      
+      updateTransform();
+      resetBtn.classList.remove('hidden');
+    }
+
+    function resetNetwork() {
+      scale = 1;
+      currentX = 0;
+      currentY = 0;
+      updateTransform();
+      
+      document.querySelectorAll('.category-node').forEach(node => node.classList.remove('active'));
+      networkViewport.classList.remove('zoomed');
+      resetBtn.classList.add('hidden');
+      
+      // --- Reset Easter Egg ---
+      isEggTriggered = false;
+      if (eggTimer) clearTimeout(eggTimer);
+      eggTimer = null;
+      document.getElementById('easter-egg-bg').classList.add('hidden');
+      document.getElementById('easter-egg-hint').classList.add('hidden');
+      networkMap.classList.remove('flung'); // Snaps the map back instantly
+    }
+
+    // 2. Blueprint Dragging Logic (Navigation with Limits)
+    networkViewport.addEventListener('mousedown', (e) => {
+      // Don't trigger drag if they are clicking a node or button
+      if (e.target.closest('.category-node') || e.target.closest('.btn')) return; 
+      
+      isDragging = true;
+      networkViewport.classList.add('is-dragging');
+      
+      // Record where the mouse grabbed the map
+      startMouseX = e.clientX - currentX;
+      startMouseY = e.clientY - currentY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      // Calculate the distance dragged
+      let rawX = e.clientX - startMouseX;
+      let rawY = e.clientY - startMouseY;
+
+      // Implements the boundaries (Limits panning to 250px in any direction)
+      const limit = 250 * scale; 
+      currentX = Math.max(-limit, Math.min(limit, rawX));
+      currentY = Math.max(-limit, Math.min(limit, rawY));
+
+      updateTransform();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      let rawX = e.clientX - startMouseX;
+      let rawY = e.clientY - startMouseY;
+
+      const limit = 250 * scale; 
+      currentX = Math.max(-limit, Math.min(limit, rawX));
+      currentY = Math.max(-limit, Math.min(limit, rawY));
+
+      updateTransform();
+
+      // --- EASTER EGG LOGIC ---
+      // If user drags the map hard to the bottom-right (rawX/rawY hit the limit)
+      if (rawX >= limit && rawY >= limit && !isEggTriggered) {
+        
+        document.getElementById('easter-egg-hint').classList.remove('hidden');
+        
+        // Start the 3-second timer if it hasn't started yet
+        if (!eggTimer) {
+          eggTimer = setTimeout(() => {
+            isEggTriggered = true;
+            document.getElementById('easter-egg-hint').classList.add('hidden');
+            document.getElementById('easter-egg-bg').classList.remove('hidden');
+            
+            // Fling the blueprint away!
+            networkMap.classList.add('flung');
+            
+            // Force the mouse to let go of the map
+            isDragging = false;
+            networkViewport.classList.remove('is-dragging');
+            
+            // Show reset button so they know they can click it to exit
+            resetBtn.classList.remove('hidden');
+          }, 3000); // 3000 milliseconds = 3 seconds
+        }
+      } else {
+        // If they stop pulling the edge before 3 seconds, cancel the timer
+        if (!isEggTriggered) {
+          document.getElementById('easter-egg-hint').classList.add('hidden');
+          if (eggTimer) {
+            clearTimeout(eggTimer);
+            eggTimer = null;
+          }
+        }
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        networkViewport.classList.remove('is-dragging');
+      }
+    });
+    
+    // Safety catch if the mouse leaves the window while dragging
+    window.addEventListener('mouseleave', () => {
+      if (isDragging) {
+        isDragging = false;
+        networkViewport.classList.remove('is-dragging');
+      }
+    });
   </script>
 
 </body>
