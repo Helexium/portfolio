@@ -253,6 +253,65 @@
     </div>
   </section>
 
+  <!-- ACTIVE EXPLORATION: MOBILE DEV -->
+  <section id="mobile-dev" class="section-light">
+    <div class="container hero-split">
+      
+      <div class="hero-text">
+        <h2 class="section-title accent-color" style="text-align: left; margin-bottom: 20px;">Mobile App Development</h2>
+        <p style="color: #94a3b8; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">
+          Taking my architecture skills on the go. I am currently diving into cross-platform mobile development, learning how to translate robust C# and relational database backend logic into responsive, native-feeling mobile interfaces.
+        </p>
+        <div class="tech-tags">
+          <span>React Native</span> <span>.NET MAUI</span> <span>Mobile UX</span>
+        </div>
+      </div>
+      
+      <!-- The Interactive CSS Phone -->
+      <div class="phone-container">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          
+          <div class="phone-screen" id="mobile-screen">
+            
+            <!-- State 1: Start Screen -->
+            <div class="app-ui" id="app-start">
+              <div class="app-icon">📱</div>
+              <h3 style="margin-bottom: 20px;">Portfolio_App</h3>
+              <button class="btn btn-primary" onclick="bootApp()" style="padding: 8px 16px; font-size: 0.9rem;">Launch App</button>
+            </div>
+            
+            <!-- State 2: Loading Sequence (Hidden) -->
+            <div class="app-ui hidden" id="app-loading">
+              <div class="spinner"></div>
+              <p class="terminal-text">Compiling assets...</p>
+              <p class="terminal-text" style="color: #94a3b8; font-size: 0.75rem; margin-top: 5px;">Connecting to C# backend</p>
+            </div>
+            
+            <!-- State 3: Active App (Hidden) -->
+            <div class="app-ui hidden" id="app-active" style="padding: 0;">
+              <div class="mobile-header">Home</div>
+              <div class="mobile-body">
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line short"></div>
+                
+                <div class="mobile-card">
+                  <strong>Status:</strong> Sync Successful
+                  <br><br>
+                  <span style="color: #94a3b8;">Data retrieved from MS SQL Server via secure API endpoint.</span>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="resetApp()" style="margin-top: 40px; font-size: 0.8rem; padding: 6px 12px;">Close App</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
     </div>
   </section>
 
@@ -372,6 +431,25 @@
       // Loops back to the first image when it reaches the end
       currentIndices[projectId] = (currentIndices[projectId] + 1) % images.length;
       document.getElementById(`img-${projectId}`).src = images[currentIndices[projectId]];
+    }
+
+    // --- MOBILE APP SIMULATOR LOGIC ---
+    function bootApp() {
+      // Hide start screen, show loading
+      document.getElementById('app-start').classList.add('hidden');
+      document.getElementById('app-loading').classList.remove('hidden');
+      
+      // Wait exactly 2 seconds, then show the app interface
+      setTimeout(() => {
+        document.getElementById('app-loading').classList.add('hidden');
+        document.getElementById('app-active').classList.remove('hidden');
+      }, 2000); 
+    }
+
+    function resetApp() {
+      // Closes the app and resets to the start screen
+      document.getElementById('app-active').classList.add('hidden');
+      document.getElementById('app-start').classList.remove('hidden');
     }
   </script>
 
