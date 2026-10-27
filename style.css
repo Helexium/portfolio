@@ -1096,87 +1096,441 @@ body.xray-active .profile-wrapper {
   pointer-events: none;
 }
 
-/* --- GIT COMMIT TIMELINE (EXPERIENCE) --- */
-.git-timeline {
-  position: relative;
-  max-width: 800px;
+/* --- IDE TERMINAL WINDOW (EXPERIENCE) --- */
+.ide-window {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  overflow: hidden;
+  max-width: 850px;
   margin: 0 auto;
-  padding-left: 30px; /* Space for the line */
 }
 
-/* The continuous vertical track */
-.git-timeline::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 6px; /* Centers the line under the dots */
-  height: 100%;
-  width: 2px;
-  background-color: #334155;
+.ide-header {
+  background-color: #1e293b;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #334155;
 }
 
+.ide-buttons {
+  display: flex;
+  gap: 8px;
+  margin-right: 20px;
+}
+
+.ide-buttons span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.btn-close { background-color: #ff5f56; }
+.btn-min { background-color: #ffbd2e; }
+.btn-max { background-color: #27c93f; }
+
+.ide-title {
+  color: #94a3b8;
+  font-family: 'Consolas', monospace;
+  font-size: 0.85rem;
+}
+
+.ide-body {
+  padding: 30px;
+  font-family: 'Consolas', monospace;
+}
+
+/* --- GIT GRAPH LOGIC --- */
 .timeline-commit {
+  display: flex;
   position: relative;
-  margin-bottom: 40px;
 }
 
-.timeline-commit:last-child {
-  margin-bottom: 0;
+/* Left Side: The Graph */
+.commit-graph {
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* The Commit Node */
 .commit-dot {
-  position: absolute;
-  top: 5px;
-  left: -29px; /* Pulls it exactly over the vertical line */
   width: 14px;
   height: 14px;
   background-color: #0f172a;
-  border: 2px solid #38bdf8;
   border-radius: 50%;
+  border: 2px solid #38bdf8;
+  margin-top: 5px;
   z-index: 2;
-  transition: all 0.3s ease;
 }
 
-/* The Experience Card */
+.init-dot { border-color: #38bdf8; }
+.merge-dot { border-color: #a78bfa; }
+.feat-dot { border-color: #f472b6; }
+.head-dot { 
+  border-color: #27c93f; 
+  background-color: #27c93f; 
+  box-shadow: 0 0 10px rgba(39, 201, 63, 0.5); 
+}
+
+.commit-line {
+  width: 2px;
+  background-color: #334155;
+  flex-grow: 1;
+  min-height: 80px;
+}
+
+/* Right Side: The Content */
+.commit-content {
+  flex-grow: 1;
+  padding-bottom: 30px;
+}
+
+.commit-meta {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.commit-hash { color: #fbbf24; font-weight: bold; }
+.commit-branch { color: #a78bfa; font-weight: bold; margin: 0 5px; }
+.commit-branch.highlight { color: #27c93f; }
+.commit-date { color: #64748b; }
+
 .commit-card {
-  background-color: #1e293b;
+  background-color: rgba(30, 41, 59, 0.3);
   border: 1px solid #334155;
-  border-radius: 8px;
-  padding: 25px;
-  transition: all 0.3s ease;
-  position: relative;
+  border-left: 3px solid #38bdf8;
+  border-radius: 6px;
+  padding: 15px 20px;
+  transition: all 0.2s ease;
 }
 
-/* Add a tiny CSS arrow pointing to the line */
-.commit-card::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: -10px;
-  border-width: 10px 10px 10px 0;
-  border-style: solid;
-  border-color: transparent #334155 transparent transparent;
-  transition: border-color 0.3s ease;
+.commit-card:hover {
+  background-color: #1e293b;
+  border-left-color: #fbbf24;
 }
 
-.commit-date {
+.commit-msg {
+  color: #f8fafc;
+  font-size: 1.1rem;
+  margin: 0 0 5px 0;
+  font-weight: normal;
+}
+
+.commit-author {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.commit-card p {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  /* Swaps back to normal reading font for the paragraphs so it's easier on the eyes */
+  font-family: system-ui, -apple-system, sans-serif; 
+}
+/* --- IDE SPLIT LAYOUT --- */
+.ide-layout {
+  display: flex;
+  background-color: #0f172a;
+}
+
+.ide-sidebar {
+  width: 250px;
+  background-color: #182235;
+  border-right: 1px solid #334155;
+  padding: 15px 0;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
   color: #64748b;
-  font-family: 'Consolas', monospace;
-  font-size: 0.8rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: bold;
   letter-spacing: 1px;
+  padding: 0 15px 10px 15px;
 }
 
-/* Hover Effects */
-.timeline-commit:hover .commit-card {
-  border-color: #38bdf8;
-  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
-  transform: translateX(5px);
+.source-input {
+  padding: 0 15px 15px 15px;
+  border-bottom: 1px solid #334155;
 }
-.timeline-commit:hover .commit-card::before {
-  border-color: transparent #38bdf8 transparent transparent;
+
+.source-input input {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: #64748b;
+  padding: 8px;
+  border-radius: 3px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  cursor: not-allowed;
 }
-.timeline-commit:hover .commit-dot {
+
+.commit-btn {
+  width: 100%;
+  background-color: #0284c7; /* Muted VS Code Blue */
+  color: #e2e8f0;
+  border: none;
+  padding: 6px;
+  border-radius: 3px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.changes-header {
+  color: #cbd5e1;
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
   background-color: #38bdf8;
-  box-shadow: 0 0 15px #38bdf8;
+  color: #0f172a;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  margin-left: auto;
+}
+
+.changes-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.change-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 15px 6px 30px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.change-file:hover {
+  background-color: #1e293b;
+}
+
+.change-file:hover .file-action {
+  opacity: 1; /* Shows the "View" text on hover */
+}
+
+.file-status.modified {
+  color: #fbbf24; /* VS Code Yellow for Modified */
+  font-family: 'Consolas', monospace;
+  font-size: 0.9rem;
+}
+
+.file-name {
+  color: #cbd5e1;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+}
+
+.file-action {
+  color: #38bdf8;
+  font-size: 0.75rem;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+/* Adjust IDE body width to account for the sidebar */
+.ide-body {
+  padding: 30px;
+  font-family: 'Consolas', monospace;
+  flex-grow: 1;
+}
+
+/* Make it stack neatly on mobile screens */
+@media (max-width: 768px) {
+  .ide-layout { flex-direction: column; }
+  .ide-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #334155; }
+}
+
+/* --- THE FLUID SWOOP ANIMATION --- */
+.scroll-swoop-hidden {
+  opacity: 0;
+  /* Tilts the screen back and pushes it down */
+  transform: translateY(80px) scale(0.9) rotateX(10deg); 
+  /* The cubic-bezier adds the fluid, bouncy snap effect */
+  transition: opacity 1s ease, transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center bottom;
+}
+
+.scroll-swoop-show {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0); /* Snaps to flat desktop */
+}
+
+/* --- DESKTOP ENVIRONMENT UI --- */
+.desktop-monitor {
+  width: 100%;
+  max-width: 900px;
+  height: 450px;
+  margin: 0 auto;
+  background: radial-gradient(circle at top right, #1e293b, #0f172a);
+  border: 8px solid #182235;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Adds depth for the 3D tilt animation */
+  perspective: 1000px; 
+  position: relative;
+  z-index: 50;
+}
+
+.desktop-topbar {
+  background-color: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(5px);
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #334155;
+  font-family: system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+.topbar-left, .topbar-right {
+  display: flex;
+  gap: 15px;
+}
+
+.desktop-workspace {
+  flex-grow: 1;
+  padding: 30px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+/* The Desktop Shortcut Icons */
+.desktop-icon {
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.desktop-icon:hover {
+  background-color: rgba(56, 189, 248, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.3);
+}
+
+.icon-graphic {
+  font-size: 3rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+}
+
+.icon-label {
+  color: #f8fafc;
+  font-family: system-ui, sans-serif;
+  font-size: 0.8rem;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  /* Truncates long file names with an ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* --- MODAL IMAGE GALLERY ANIMATION --- */
+#modal-image {
+  transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+}
+
+#modal-image.fade-out {
+  opacity: 0;
+}
+
+/* --- TOPOLOGY MAP INITIALIZATION LOGIC --- */
+
+/* Smooth transitions for the boot sequence */
+.network-wires { transition: opacity 0.8s ease; }
+.category-node { transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* The Standby State */
+.network-map.collapsed .network-wires {
+  opacity: 0;
+}
+
+.network-map.collapsed .category-node {
+  opacity: 0;
+  transform: scale(0.1);
+  pointer-events: none; /* Prevents invisible hovering */
+}
+
+.network-map.collapsed .center-node {
+  cursor: pointer;
+  /* Adds the glowing pulse animation to the core */
+  animation: core-pulse 2s infinite;
+}
+
+@keyframes core-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6); }
+  70% { box-shadow: 0 0 0 25px rgba(56, 189, 248, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+
+/* --- REBOOT SYSTEM BUTTON --- */
+#reboot-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  background-color: rgba(15, 23, 42, 0.9);
+  color: #ff5f56; /* Terminal Red */
+  border: 1px solid #ff5f56;
+  padding: 10px 15px;
+  font-family: 'Consolas', monospace;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  
+  /* Hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
+#reboot-btn.show-reboot {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+#reboot-btn:hover {
+  background-color: #ff5f56;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 95, 86, 0.4);
 }

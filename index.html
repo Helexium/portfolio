@@ -18,6 +18,11 @@
     </ul>
   </nav>
 <!-- DEVELOPER MODE TOGGLE -->
+
+<!-- REBOOT SYSTEM BUTTON (Bottom Left) -->
+  <button id="reboot-btn" class="system-btn" onclick="rebootSystem()">
+    [ ↻ System.Restart() ]
+  </button>
   <!-- DEVELOPER MODE TOGGLE -->
   <button id="dev-toggle" class="dev-btn">[ { } Enter Dev Mode ]</button>
   
@@ -76,29 +81,44 @@
     </div>
   </section>
 
-  <!-- PROJECTS SECTION (MINIMALIST BUTTON TRIGGERS) -->
+  <!-- FEATURED PROJECTS (THE DESKTOP UI) -->
   <section id="projects" class="section-dark">
-    <div class="container center-text">
-      <h2 class="section-title accent-color">Featured Projects</h2>
+    <div class="container">
+      <h2 class="section-title scroll-hidden" style="text-align: center; margin-bottom: 40px;">Workspace // Featured Projects</h2>
       
-      <div class="project-buttons-grid">
-        <button class="project-trigger-btn" onclick="openModal('docureq')">
-          <div class="btn-icon">📁</div>
-          <div class="btn-text">
-            <h3>DocuReq Student Portal</h3>
-            <span>Launch Project Window ➔</span>
+      <!-- The Desktop Monitor Wrapper -->
+      <div class="desktop-monitor scroll-swoop-hidden">
+        
+        <!-- Top Status Bar -->
+        <div class="desktop-topbar">
+          <div class="topbar-left">
+            <span style="font-weight: bold;"> Shimeih_OS</span>
+            <span>File</span>
+            <span>View</span>
           </div>
-        </button>
+          <div class="topbar-right">
+            <span>100% 🔋</span>
+            <span>Tue Oct 27</span>
+          </div>
+        </div>
 
-        <button class="project-trigger-btn" onclick="openModal('dost')">
-          <div class="btn-icon">📊</div>
-          <div class="btn-text">
-            <h3>DOST Rental Tracker</h3>
-            <span>Launch Project Window ➔</span>
+        <!-- The Desktop Background & Files -->
+        <div class="desktop-workspace">
+          
+          <!-- File 1: DocuReq -->
+          <div class="desktop-icon project-trigger-btn" onclick="openProject('docureq')">
+            <div class="icon-graphic">🗂️</div>
+            <span class="icon-label">DocuReq</span>
           </div>
-        </button>
+
+          <!-- File 2: Little Task And Co -->
+          <div class="desktop-icon project-trigger-btn" onclick="openProject('dost')">
+            <div class="icon-graphic">📦</div>
+            <span class="icon-label">SETUP_CONNECT</span>
+          </div>
+
+        </div>
       </div>
-      
     </div>
   </section>
 
@@ -106,40 +126,34 @@
   <section id="skills" class="section-light">
     <div class="container center-text">
       <h2 class="section-title">Technology Stack</h2>
-      <p style="color: #94a3b8; margin-bottom: 40px;">Interactive System Topology. Click a core domain to view my tools and languages.</p>
+      <p id="topology-desc" style="color: #94a3b8; margin-bottom: 40px; font-family: 'Consolas', monospace;">
+        > System on standby. Click the central core to initialize topology...
+      </p>
       
       <div class="network-viewport">
         
-        <!-- EASTER EGG: The Hidden Background (Behind the map) -->
+        <!-- EASTER EGG STUFF -->
         <div id="easter-egg-bg" class="hidden" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #0f172a; z-index: 0;">
           <img src="happycat.gif" alt="Dancing Cat" style="width: 150px; border-radius: 10px;">
           <h3 style="color: #38bdf8; margin-top: 15px; font-family: 'Consolas', monospace;">You found the secret!</h3>
         </div>
-        
-        <!-- EASTER EGG: The Hint Text -->
         <div id="easter-egg-hint" class="hidden" style="position: absolute; top: 20px; left: 20px; color: #0f0; font-family: 'Consolas', monospace; font-size: 0.9rem; z-index: 50; text-shadow: 0 0 5px #0f0; pointer-events: none;">Hmm? something is here...</div>
         <button id="reset-map" class="btn btn-secondary hidden" onclick="resetNetwork()" style="position: absolute; top: 10px; right: 10px; z-index: 100; font-size: 0.8rem; padding: 5px 10px;">[ - ] Zoom Out</button>
         
-        <div class="network-map" id="network-map">
+        <!-- THE MAP (Starts Collapsed) -->
+        <div class="network-map collapsed" id="network-map">
           
-          <!-- The Connecting Wires -->
           <svg class="network-wires" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <!-- Center to Top Middle (Version Control) - NEW -->
             <line x1="50" y1="50" x2="50" y2="15" class="wire" />
-            <!-- Center to Top Left (Backend) -->
             <line x1="50" y1="50" x2="25" y2="25" class="wire" />
-            <!-- Center to Top Right (Database) -->
             <line x1="50" y1="50" x2="75" y2="25" class="wire" />
-            <!-- Center to Bottom Left (Game Dev) -->
             <line x1="50" y1="50" x2="25" y2="75" class="wire" />
-            <!-- Center to Bottom Right (Frontend) -->
             <line x1="50" y1="50" x2="75" y2="75" class="wire" />
-            <!-- Center to Bottom Middle (Design & Leadership) -->
             <line x1="50" y1="50" x2="50" y2="85" class="wire" />
           </svg>
 
-          <!-- The Center Hub (You) -->
-          <div class="net-node center-node" style="left: 50%; top: 50%;">
+          <!-- The Center Hub (Now Clickable) -->
+          <div class="net-node center-node" style="left: 50%; top: 50%;" onclick="initializeMap()">
             <img src="pics/pic1.jpg" alt="Center Hub" class="hub-img">
           </div>
 
@@ -257,76 +271,159 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE TIMELINE (GIT LOG) -->
+  <!-- EXPERIENCE TIMELINE (IDE TERMINAL WINDOW) -->
   <section id="experience" class="section-dark">
     <div class="container">
       <h2 class="section-title accent-color">Execution Thread // Experience</h2>
-      <p class="center-text" style="color: #94a3b8; max-width: 800px; margin: 0 auto 60px auto; font-size: 1.1rem; line-height: 1.6;">
-        A timeline of my professional compilation, from community leadership to enterprise architecture and academia.
-      </p>
 
-      <div class="git-timeline">
-        
-        <!-- Commit 1: Instructor -->
-        <div class="timeline-commit scroll-hidden">
-          <div class="commit-dot"></div>
-          <div class="commit-card">
-            <span class="commit-date">COMMIT: JUN 2026 - JUL 2026</span>
-            <h3 style="color: #f8fafc; margin: 5px 0;">Part-Time Instructor</h3>
-            <span style="color: #38bdf8; font-size: 0.9rem; font-family: 'Consolas', monospace;">DMC College Foundation Inc.</span>
-            <p style="color: #94a3b8; margin-top: 15px; font-size: 0.95rem; line-height: 1.5;">
-              Instructed undergraduate courses including Nursing Informatics (NCM 111) and Communication Technologies in Healthcare. Managed 20 hours per week across two daily sections, translating technical data logging concepts for medical professionals.
-            </p>
+
+      <div class="ide-window">
+        <!-- IDE Window Header -->
+        <div class="ide-header">
+          <div class="ide-buttons">
+            <span class="btn-close"></span>
+            <span class="btn-min"></span>
+            <span class="btn-max"></span>
           </div>
+          <div class="ide-title">~/shimeih_os — git log & source control</div>
         </div>
 
-        <!-- Commit 2: DOST OJT -->
-        <div class="timeline-commit scroll-hidden">
-          <div class="commit-dot"></div>
-          <div class="commit-card">
-            <span class="commit-date">COMMIT: JAN 2026 - APR 2026</span>
-            <h3 style="color: #f8fafc; margin: 5px 0;">Software Engineering Intern (500-hr OJT)</h3>
-            <span style="color: #38bdf8; font-size: 0.9rem; font-family: 'Consolas', monospace;">Department of Science and Technology (PSTC-ZDN)</span>
-            <p style="color: #94a3b8; margin-top: 15px; font-size: 0.95rem; line-height: 1.5;">
-              Developed and deployed the "SETUP: Rental Tracker Management System". Built a lightweight, custom database utilizing Google Apps Script and Google Sheets to automate equipment tracking and regional deployment logs.
-            </p>
+        <!-- NEW: Split Layout for Sidebar and Graph -->
+        <div class="ide-layout">
+          
+          <!-- SIDEBAR: Source Control -->
+          <div class="ide-sidebar">
+            <div class="sidebar-title">SOURCE CONTROL</div>
+            
+            <div class="source-input">
+              <input type="text" placeholder="Update portfolio..." disabled>
+              <button class="commit-btn" disabled>Commit & Push</button>
+            </div>
+
+            <div class="changes-header">
+              <span style="font-size: 0.7rem;">▼</span> Changes <span class="badge">1</span>
+            </div>
+            
+            <div class="changes-list">
+              <!-- This is the button that flings you down the page -->
+              <a href="#upcoming-projects" class="change-file">
+                <span class="file-status modified">M</span>
+                <span class="file-name">upcoming_features.js</span>
+                <span class="file-action">View ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- MAIN BODY: The Git Graph -->
+          <div class="ide-body">
+            
+            <!-- Commit 1 (Oldest / Start) -->
+          <div class="timeline-commit scroll-hidden">
+            <div class="commit-graph">
+              <div class="commit-dot init-dot"></div>
+              <div class="commit-line"></div>
+            </div>
+            <div class="commit-content">
+              <div class="commit-meta">
+                <span class="commit-hash">cf9a2b1</span> 
+                <span class="commit-branch">(origin/academic)</span>
+                <span class="commit-date">2022 - 2023</span>
+              </div>
+              <div class="commit-card">
+                <h3 class="commit-msg">init: Exploring Digital Complexity</h3>
+                <span class="commit-author">Shimeih Klein &lt;helexium@dmc.edu.ph&gt;</span>
+                <p>Started with a raw fascination for the digital world. Enrolled in BSIT to explore what I could build, but quickly realized the actual joy was in the problem-solving. Developed a habit of dissecting roadblocks from unconventional angles, engineering my own custom logic before defaulting to traditional solutions.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Commit 2 -->
+          <div class="timeline-commit scroll-hidden">
+            <div class="commit-graph">
+              <div class="commit-dot feat-dot"></div>
+              <div class="commit-line"></div>
+            </div>
+            <div class="commit-content">
+              <div class="commit-meta">
+                <span class="commit-hash">b3a194c</span> 
+                <span class="commit-date">2024 - 2025</span>
+              </div>
+              <div class="commit-card">
+                <h3 class="commit-msg">feat: The Architecture Mindset</h3>
+                <span class="commit-author">Shimeih Klein &lt;helexium@dmc.edu.ph&gt;</span>
+                <p>Drawn naturally to backend programming and database management. The focus shifted to how data structures move and scale. Evolved into a full-stack developer out of necessity to manage end-to-end projects, architecting systems like the DocuReq centralized document request pipeline in ASP.NET Core.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Commit 3 -->
+          <div class="timeline-commit scroll-hidden">
+            <div class="commit-graph">
+              <div class="commit-dot merge-dot"></div>
+              <div class="commit-line"></div>
+            </div>
+            <div class="commit-content">
+              <div class="commit-meta">
+                <span class="commit-hash">e8b7d4f</span> 
+                <span class="commit-branch">(feature/full-stack)</span>
+                <span class="commit-date">JAN 2026 - APR 2026</span>
+              </div>
+              <div class="commit-card">
+                <h3 class="commit-msg">merge: Full-Stack Automation</h3>
+                <span class="commit-author">Department of Science and Technology (PSTC-ZDN)</span>
+                <p>The environment that solidified my capabilities as a software developer. Took regional equipment tracking out of scattered manual logs and engineered the "SETUP" custom database. Eliminated double-entry errors by fully integrating a lightweight front-end UI with a Google Apps Script backend, shortening turnaround times for the entire enterprise.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Commit 4 -->
+          <div class="timeline-commit scroll-hidden">
+            <div class="commit-graph">
+              <div class="commit-dot feat-dot" style="border-color: #f59e0b;"></div>
+              <div class="commit-line"></div>
+            </div>
+            <div class="commit-content">
+              <div class="commit-meta">
+                <span class="commit-hash">9d2f1a6</span> 
+                <span class="commit-date">JUN 2026 - JUL 2026</span>
+              </div>
+              <div class="commit-card">
+                <h3 class="commit-msg">deploy: Human-System Integration</h3>
+                <span class="commit-author">DMC College Foundation Inc.</span>
+                <p>Software logic is useless if the end-user cannot rely on it. Stepped into academia as a Part-Time Instructor for Nursing Informatics (NCM 111). Focused on translating complex data-logging concepts into practical workflows, bridging the gap between back-end infrastructure and the medical professionals who use it daily.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Commit 5 (Newest / Present) -->
+          <div class="timeline-commit scroll-hidden">
+            <div class="commit-graph">
+              <div class="commit-dot head-dot"></div>
+            </div>
+            <div class="commit-content">
+              <div class="commit-meta">
+                <span class="commit-hash">f7c90b2</span> 
+                <span class="commit-branch highlight">(HEAD -> main)</span>
+                <span class="commit-date">PRESENT</span>
+              </div>
+              <div class="commit-card">
+                <h3 class="commit-msg">checkout: -b expanding_horizons</h3>
+                <span class="commit-author">Shimeih Klein &lt;helexium@dmc.edu.ph&gt;</span>
+                <p>Actively expanding my engineering toolkit beyond standard web environments. Currently translating robust C# and SQL server logic into cross-platform mobile integrations, while experimenting with physics and low-level programming mechanics in game development engines.</p>
+              </div>
+            </div>
+          </div>
+
           </div>
         </div>
-
-        <!-- Commit 3: SSG Leader -->
-        <div class="timeline-commit scroll-hidden">
-          <div class="commit-dot"></div>
-          <div class="commit-card">
-            <span class="commit-date">COMMIT: FEB 2026 - APR 2026</span>
-            <h3 style="color: #f8fafc; margin: 5px 0;">Appointed Student Leader (SSG)</h3>
-            <span style="color: #38bdf8; font-size: 0.9rem; font-family: 'Consolas', monospace;">Supreme Student Government - DMCCFI</span>
-            <p style="color: #94a3b8; margin-top: 15px; font-size: 0.95rem; line-height: 1.5;">
-              Managed campus events, digital media releases, and organizational initiatives. Directed and edited promotional media campaigns for the Pasiklaban 2026 campus event.
-            </p>
-          </div>
-        </div>
-
-        <!-- Commit 4: Academic Foundation -->
-        <div class="timeline-commit scroll-hidden">
-          <div class="commit-dot"></div>
-          <div class="commit-card">
-            <span class="commit-date">INIT: 2022 - PRESENT</span>
-            <h3 style="color: #f8fafc; margin: 5px 0;">B.S. Information Technology</h3>
-            <span style="color: #38bdf8; font-size: 0.9rem; font-family: 'Consolas', monospace;">DMC College Foundation Inc.</span>
-            <p style="color: #94a3b8; margin-top: 15px; font-size: 0.95rem; line-height: 1.5;">
-              Focusing on back-end development, database management, and system architecture. Culminating in the development of the "DocuReq" centralized document request system.
-            </p>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
 
-  <!-- CURRENT FOCUS & SANDBOX SECTION -->
-  <section id="sandbox" class="section-dark">
+  <!-- UPCOMING PROJECTS (The target for the Changes button) -->
+  <section id="upcoming-projects" class="section-light">
     <div class="container">
-      <h2 class="section-title accent-color">Upcoming Projects</h2>
+      <h2 class="section-title accent-color">Staged Changes // Upcoming</h2>
       <p class="center-text" style="color: #94a3b8; max-width: 800px; margin: 0 auto 60px auto; font-size: 1.1rem; line-height: 1.6;">
         While my foundation is in enterprise backend architecture, I am actively expanding my engineering toolkit into game mechanics and cross-platform mobile environments.
       </p>
@@ -410,39 +507,34 @@
   </section>
 
   <!-- FOOTER -->
-  <footer id="contact" class="section-light center-text">
+  <footer id="contact" class="section-dark center-text">
     <div class="container">
       <h2>Let's build something.</h2>
       <p>Currently open for software engineering roles.</p>
+      <br>
       <a href="mailto:your.email@gmail.com" class="btn btn-primary">Get In Touch</a>
     </div>
   </footer>
 
-  <!-- PROJECT APP WINDOW (MODAL) -->
-  <div id="project-modal" class="modal-overlay" onclick="closeModal(event)">
-    <div class="modal-window">
-      <div class="modal-header">
-        <span class="modal-title-bar" id="modal-header-title">Project_Viewer.exe</span>
-        <button class="close-modal-btn" onclick="forceCloseModal()">✖</button>
-      </div>
+  <!-- PROJECT MODAL (The Single, Clean Version) -->
+  <div id="project-modal" class="modal hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+    <div class="modal-content" style="background: #1e293b; border: 1px solid #38bdf8; border-radius: 12px; width: 90%; max-width: 800px; padding: 30px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5);">
       
-      <div class="modal-content-split">
-        <!-- Left Side: Carousel -->
-        <div class="modal-carousel">
-          <img src="" alt="Project Screenshot" id="modal-img" class="carousel-img" onclick="openLightbox(this.src)">
-          <p class="click-reminder">🔍 Click image to enlarge</p>
-          <div class="carousel-controls">
-            <button onclick="modalPrevImage()">◀ Prev</button>
-            <button onclick="modalNextImage()">Next ▶</button>
-          </div>
-        </div>
+      <!-- Close Button -->
+      <button onclick="closeModal()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: #ff5f56; font-size: 1.5rem; cursor: pointer; font-weight: bold; z-index: 10;">×</button>
+      
+      <h3 id="modal-title" style="color: #f8fafc; margin-bottom: 20px; font-size: 1.5rem; font-family: 'Consolas', monospace;">Project Title</h3>
+      
+      <!-- Image Gallery Screen -->
+      <div class="modal-gallery" style="position: relative; width: 100%; height: 350px; background: #0f172a; border-radius: 8px; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #334155;">
+        <img id="modal-image" src="" alt="Project Screenshot" style="max-width: 100%; max-height: 100%; object-fit: contain;">
         
-        <!-- Right Side: Description -->
-        <div class="modal-info">
-          <h3 id="modal-title" style="color: #38bdf8; margin-bottom: 15px; font-size: 1.8rem;">Project Title</h3>
-          <p id="modal-desc" style="color: #cbd5e1; line-height: 1.6; font-size: 1.05rem;">Project description goes here.</p>
-        </div>
+        <!-- Navigation Arrows -->
+        <button id="prev-img-btn" onclick="changeImage(-1)" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(15, 23, 42, 0.7); color: #38bdf8; border: 1px solid #38bdf8; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; display: none;">❮</button>
+        <button id="next-img-btn" onclick="changeImage(1)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(15, 23, 42, 0.7); color: #38bdf8; border: 1px solid #38bdf8; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; display: none;">❯</button>
       </div>
+
+      <p id="modal-desc" style="color: #cbd5e1; line-height: 1.6;">Project Description</p>
     </div>
   </div>
   
@@ -577,96 +669,86 @@
       }
     });
 
-    // --- PROJECT CAROUSEL LOGIC ---
-    
-
-    // Keeps track of which image is currently showing
-    const currentIndices = {
-      'docureq': 0,
-      'dost': 0
-    };
-
-    // --- APP WINDOW (MODAL) LOGIC ---
-    
-    // The master database of your projects
+    // --- PROJECT MODAL & GALLERY ENGINE ---
     const projectData = {
       'docureq': {
-        title: 'DocuReq Student Portal',
-        desc: 'A centralized web portal built entirely with C#, ASP.NET Core MVC, and Microsoft SQL Server. It features a robust relational database backend that handles document requests securely and efficiently, replacing manual campus workflows.',
-        images: ['screenshots/docureq1.png', 'screenshots/docureq2.png', 'screenshots/docureq3.png', 'screenshots/docureq4.png', 'screenshots/docureq5.png', 'screenshots/docureq6.png', 'screenshots/docureq7.png', 'screenshots/docureq8.png', 'screenshots/docureq9.png']
+        title: 'DocuReq: Document Request System',
+        desc: 'A centralized back-end architecture for processing campus document requests securely and efficiently.',
+        images: ['screenshots/docureq1.png', 'screenshots/docureq2.png', 'screenshots/docureq3.png', 'screenshots/docureq4.png', 'screenshots/docureq5.png', 'screenshots/docureq6.png'] 
       },
-      'dost': {
-        title: 'DOST Rental Tracker',
-        desc: 'An automated management system built for the Department of Science and Technology. Engineered using Google Apps Script and Google Sheets, it acts as a lightweight custom database to track equipment deployment and rental statuses.',
-        images: ['screenshots/dost1.png', 'screenshots/dost2.png', 'screenshots/dost3.png', 'screenshots/dost4.png', 'screenshots/dost5.png', 'screenshots/dost6.png']
+      'dost': { // Fixed: This now matches your desktop icon!
+        title: 'SETUP CONNECT: Rental Tracker Management System',
+        desc: 'A lightweight custom database and tracking tool developed using Google Apps Script and Google Sheets to automate regional equipment deployment logs for DOST Region 9.',
+        images: ['screenshots/dost1.png', 'screenshots/dost2.png', 'screenshots/dost3.png', 'screenshots/dost4.png', 'screenshots/dost5.png', 'screenshots/dost6.png'] 
       }
     };
 
-    let activeProjectKey = '';
-    let activeImageIndex = 0;
+    let currentProjectImages = [];
+    let currentImageIndex = 0;
 
-    function openModal(projectKey) {
-      activeProjectKey = projectKey;
-      activeImageIndex = 0;
-      const data = projectData[projectKey];
-
-      // Populate the text
-      document.getElementById('modal-title').innerText = data.title;
-      document.getElementById('modal-desc').innerText = data.desc;
+    function openProject(projectId) {
+      const modal = document.getElementById('project-modal');
+      const data = projectData[projectId];
       
-      // Load the first image
-      const imgElement = document.getElementById('modal-img');
-      imgElement.src = data.images[0];
-      
-      // Show the window
-      document.getElementById('project-modal').classList.add('show');
+      if(data) {
+        document.getElementById('modal-title').innerText = data.title;
+        document.getElementById('modal-desc').innerText = data.desc;
+        
+        currentProjectImages = data.images || [];
+        currentImageIndex = 0;
+        updateGalleryUI();
+        
+        modal.style.display = 'flex';
+        modal.classList.remove('hidden');
+      }
     }
 
-    function forceCloseModal() {
-      document.getElementById('project-modal').classList.remove('show');
+    function closeModal() {
+      const modal = document.getElementById('project-modal');
+      modal.style.display = 'none';
+      modal.classList.add('hidden');
     }
 
-    // Closes modal if you click the dark background outside the window
-    function closeModal(event) {
-      if (event.target.id === 'project-modal') forceCloseModal();
-    }
-
-    function modalPrevImage() {
-      const imgElement = document.getElementById('modal-img');
-      const images = projectData[activeProjectKey].images;
+    function changeImage(step) {
+      const imgElement = document.getElementById('modal-image');
       
+      // 1. Trigger the fade-out animation
       imgElement.classList.add('fade-out');
+      
+      // 2. Wait 200ms for it to disappear, THEN swap the image
       setTimeout(() => {
-        activeImageIndex = (activeImageIndex - 1 + images.length) % images.length;
-        imgElement.src = images[activeImageIndex];
+        currentImageIndex += step;
+        
+        // Loop back around if we hit the end or beginning
+        if (currentImageIndex >= currentProjectImages.length) {
+          currentImageIndex = 0;
+        } else if (currentImageIndex < 0) {
+          currentImageIndex = currentProjectImages.length - 1;
+        }
+        
+        updateGalleryUI();
+        
+        // 3. Fade the new image back in
         imgElement.classList.remove('fade-out');
       }, 200);
     }
 
-    function modalNextImage() {
-      const imgElement = document.getElementById('modal-img');
-      const images = projectData[activeProjectKey].images;
-      
-      imgElement.classList.add('fade-out');
-      setTimeout(() => {
-        activeImageIndex = (activeImageIndex + 1) % images.length;
-        imgElement.src = images[activeImageIndex];
-        imgElement.classList.remove('fade-out');
-      }, 200);
-    }
+    function updateGalleryUI() {
+      const imgElement = document.getElementById('modal-image');
+      const prevBtn = document.getElementById('prev-img-btn');
+      const nextBtn = document.getElementById('next-img-btn');
 
-    // --- LIGHTBOX LOGIC ---
-    function openLightbox(imageSrc) {
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      
-      lightboxImg.src = imageSrc;         // Put the clicked image into the lightbox
-      lightbox.classList.add('show');     // Trigger the CSS animation to show it
-    }
-
-    function closeLightbox() {
-      const lightbox = document.getElementById('lightbox');
-      lightbox.classList.remove('show');  // Trigger the CSS animation to hide it
+      if (currentProjectImages.length > 0) {
+        imgElement.src = currentProjectImages[currentImageIndex];
+        imgElement.style.display = 'block';
+        if (currentProjectImages.length > 1) {
+          prevBtn.style.display = 'block';
+          nextBtn.style.display = 'block';
+        } else {
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+        }
+      }
     }
 
     // --- MOBILE APP SIMULATOR LOGIC ---
@@ -686,6 +768,23 @@
       // Closes the app and resets to the start screen
       document.getElementById('app-active').classList.add('hidden');
       document.getElementById('app-start').classList.remove('hidden');
+    }
+
+    // --- TOPOLOGY INITIALIZATION ENGINE ---
+    function initializeMap() {
+      const map = document.getElementById('network-map');
+      const desc = document.getElementById('topology-desc');
+      
+      // If it's currently in standby mode
+      if (map.classList.contains('collapsed')) {
+        
+        // 1. Remove the collapsed class to trigger the CSS animations (nodes explode outward)
+        map.classList.remove('collapsed');
+        
+        // 2. Change the terminal text to show it is online
+        desc.style.color = '#38bdf8';
+        desc.innerText = '> Topology online. Click a core domain to expand tools.';
+      }
     }
 
     // --- ADVANCED NETWORK MAP ENGINE ---
@@ -799,8 +898,8 @@
 
     // 2. Blueprint Dragging Logic (Navigation with Limits)
     networkViewport.addEventListener('mousedown', (e) => {
-      // Don't trigger drag if they are clicking a node or button
-      if (e.target.closest('.category-node') || e.target.closest('.btn')) return; 
+      // Don't trigger drag if clicking a node, button, or if the map is still in standby
+      if (e.target.closest('.category-node') || e.target.closest('.btn') || networkMap.classList.contains('collapsed')) return;
       
       isDragging = true;
       networkViewport.classList.add('is-dragging');
@@ -890,6 +989,7 @@
 
     // --- SCROLL ANIMATION ENGINE ---
     // Sets the trigger line. Elements animate when 15% of them crosses into the screen.
+    // --- SCROLL ANIMATION ENGINE ---
     const scrollObserverOptions = {
       root: null,
       rootMargin: '0px',
@@ -898,35 +998,101 @@
 
     const scrollObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Element enters the screen: trigger the glide-up animation
-          entry.target.classList.add('scroll-show');
-        } else {
-          // Element leaves the screen: reset it back to hidden so it can animate again
-          entry.target.classList.remove('scroll-show');
+        
+        // 1. Check if it's the Desktop Swoop
+        if (entry.target.classList.contains('scroll-swoop-hidden')) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-swoop-show');
+          } else {
+            entry.target.classList.remove('scroll-swoop-show');
+          }
+        } 
+        
+        // 2. Handle the normal Glide animations for everything else
+        else if (entry.target.classList.contains('scroll-hidden')) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('scroll-show');
+          } else {
+            entry.target.classList.remove('scroll-show');
+          }
         }
+        
       });
     }, scrollObserverOptions);
 
-    // Automatically apply the hidden state and start watching these elements
+    // Make sure we are watching the new swoop element!
     const elementsToAnimate = document.querySelectorAll(
-      'section h2, .project-trigger-btn, .network-viewport, .sandbox-block, .video-card, .timeline-commit'
+      'section h2, .sandbox-block, .video-card, .timeline-commit, .scroll-swoop-hidden'
     );
     
     elementsToAnimate.forEach(el => {
-      el.classList.add('scroll-hidden');
+      // Only apply the standard hide class if it isn't the desktop swoop!
+      if (!el.classList.contains('scroll-swoop-hidden')) {
+        el.classList.add('scroll-hidden');
+      }
       scrollObserver.observe(el);
     });
+
     // --- CLICK OUTSIDE TO RESET LOGIC ---
     document.addEventListener('mousedown', (e) => {
-      // Check if the map is currently zoomed in or altered
       const isZoomed = networkViewport.classList.contains('zoomed');
-      
-      // If the map is zoomed in, AND the user clicks completely outside the blueprint box
       if (isZoomed && !networkViewport.contains(e.target)) {
         resetNetwork();
       }
     });
+    // --- REBOOT SYSTEM ENGINE ---
+    const rebootBtn = document.getElementById('reboot-btn');
+
+    // 1. Only show the button if they have scrolled down past the hero section
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        rebootBtn.classList.add('show-reboot');
+      } else {
+        rebootBtn.classList.remove('show-reboot');
+      }
+    });
+
+    // 2. The Master Reset Switch
+    function rebootSystem() {
+      // Fling back to the top
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+      // Give it a tiny delay to let the scroll start before wiping everything
+      setTimeout(() => {
+        // Reset Topology Map to Standby
+        const map = document.getElementById('network-map');
+        const desc = document.getElementById('topology-desc');
+        if (map && desc) {
+          resetNetwork(); // Zooms out and centers
+          map.classList.add('collapsed'); // Cuts power to the branches
+          desc.style.color = '#94a3b8';
+          desc.innerText = '> System on standby. Click the central core to initialize topology...';
+        }
+
+        // Turn off X-Ray Mode if it is running
+        if (document.body.classList.contains('xray-active')) {
+          document.body.classList.remove('xray-active');
+          document.getElementById('dev-toggle').innerText = "[ { } Enter Dev Mode ]";
+          document.getElementById('matrix-bg').classList.add('hidden');
+          if (typeof matrixInterval !== 'undefined') clearInterval(matrixInterval);
+          const matrixCtx = document.getElementById('matrix-bg').getContext('2d');
+          matrixCtx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Close any open Modals
+        if (typeof closeModal === 'function') {
+          closeModal();
+        }
+
+        // Reset the Mobile Emulator
+        if (typeof resetApp === 'function') {
+          resetApp();
+        }
+      }, 300);
+    }
   </script>
 
 </body>
