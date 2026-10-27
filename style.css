@@ -2041,25 +2041,35 @@ body.dev-mode-active .profile-wrapper {
 
   /* --- FIX PROFILE HEADER & TEXT ALIGNMENT ON MOBILE --- */
   .profile-name-group {
-    flex-direction: column !important; /* Stacks the picture above the name */
-    justify-content: center !important;
+    display: flex !important;
+    flex-direction: column !important; /* Forces the picture ABOVE the name */
+    align-items: center !important;    /* Centers everything perfectly */
     text-align: center !important;
     gap: 15px !important;
+    width: 100% !important;
   }
 
-  #hero h1 {
-    font-size: 2.2rem !important; /* Scales down the name slightly to fit the screen */
+  .profile-name-group h1 {
+    font-size: 2.2rem !important; /* Shrinks the text slightly */
+    text-align: center !important;
+    word-break: break-word !important; /* Prevents long names from spilling out */
+    line-height: 1.1 !important;
   }
 
-  #hero .hero-text {
-    text-align: center !important; /* Centers the subtitle and bio text */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .hero-text {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .hero-text p, .hero-text h2 {
+    text-align: center !important;
   }
 
   .button-group-left {
-    justify-content: center !important; /* Centers the Execute CV button */
-    width: 100%;
+    justify-content: center !important;
+    width: 100% !important;
   }
 }
