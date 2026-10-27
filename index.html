@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shimeih Montefalcon | Software Developer</title>
+  <title>Shimeih Klein Montefalcon | Software Engineer</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text y='70' x='15' font-family='Consolas, monospace' font-size='65' fill='%2327c93f' font-weight='bold'>&gt;_</text></svg>">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- THE MATRIX BACKGROUND -->
+  <canvas id="matrix-bg" class="hidden"></canvas>
   <!-- FIXED NAVIGATION BAR -->
   <nav id="navbar">
     <div class="nav-brand">Shimeih_Klein_OS</div>
@@ -23,14 +26,9 @@
   <button id="reboot-btn" class="system-btn" onclick="rebootSystem()">
     [ ↻ System.Restart() ]
   </button>
-  <!-- DEVELOPER MODE TOGGLE -->
-  <button id="dev-toggle" class="dev-btn">[ { } Enter Dev Mode ]</button>
-  
-  <!-- THE MATRIX BACKGROUND -->
-  <canvas id="matrix-bg" class="hidden"></canvas>
 
   <!-- HERO SECTION: THE TERMINAL -->
-  <section id="hero" class="section-dark">
+  <section id="hero" class="section-light">
     <div class="container hero-split"> <!-- THIS LINE WAS MISSING -->
       
       <div class="hero-text">
@@ -39,7 +37,8 @@
         <div class="profile-name-group">
           <div class="profile-wrapper" id="profile-trigger" title="Click to swap image!">
             <!-- Normal UI -->
-            <img src="pics/pic1.jpg" alt="Shimeih Klein Montefalcon" id="profile-pic" class="profile-img">
+            <!-- Normal UI -->
+            <img src="pics/pic1.jpg" alt="Shimeih Klein Montefalcon" id="profile-pic" class="profile-img hide-in-xray">
             
             <!-- Skeletal Code (Revealed in X-Ray Mode) -->
             <div class="xray-code">
@@ -51,11 +50,11 @@
           <h1 class="accent-color">Shimeih Klein<br>Montefalcon</h1>
         </div>
 
-        <h2 style="color: #38bdf8; margin-bottom: 20px;">Full-Stack Software Developer</h2>
-        <p>Architecting secure enterprise backends, designing fluid web interfaces, and engineering interactive game systems. Magna Cum Laude BSIT graduate driven by clean code and system performance.</p>
+        <h2 style="color: #38bdf8; margin-bottom: 20px;">Full Stack Software Engineer</h2>
+        <p>Magna Cum Laude BSIT graduate building scalable full-stack applications and SQL databases. I combine a keen eye for code quality with a critical, flowchart-driven approach to problem-solving. I thrive on analyzing challenges from alternative perspectives, actively engineering my own solutions before falling back on traditional conventions.</p>
         <div class="button-group-left">
-          <a href="#projects" class="btn btn-primary">Execute: View_Work()</a>
-          <a href="resume.pdf" class="btn btn-secondary">Download_CV.pdf</a>
+          <!-- Interactive CV Download Button -->
+          <button id="cv-btn" class="btn btn-primary" onclick="downloadCV()">Execute: fetch_CV()</button>
         </div>
       </div>
       
@@ -436,14 +435,44 @@
         </p>
         
         <div class="video-showcase-grid">
+          
+          <!-- VIDEO 1 -->
           <div class="video-card">
-            <video src="vids/godot1.mp4" autoplay loop muted playsinline class="showcase-video"></video>
-            <div class="video-caption">▶ Basic Physics and Movements</div>
+            <!-- Normal UI -->
+            <div class="hide-in-xray">
+              <video src="vids/godot1.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+              <div class="video-caption">▶ Basic Physics and Movements</div>
+            </div>
+            <!-- Matrix Code -->
+            <div class="xray-code">
+              &lt;KinematicBody2D&gt;<br>
+              &nbsp;&nbsp;&lt;CollisionShape2D /&gt;<br>
+              &nbsp;&nbsp;&lt;Sprite /&gt;<br>
+              &nbsp;&nbsp;physics_process(delta):<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;apply_gravity()<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;move_and_slide()<br>
+              &lt;/KinematicBody2D&gt;
+            </div>
           </div>
+
+          <!-- VIDEO 2 -->
           <div class="video-card">
-            <video src="vids/godot2.mp4" autoplay loop muted playsinline class="showcase-video"></video>
-            <div class="video-caption">▶ Animations and Game Logic</div>
+            <!-- Normal UI -->
+            <div class="hide-in-xray">
+              <video src="vids/godot2.mp4" autoplay loop muted playsinline class="showcase-video"></video>
+              <div class="video-caption">▶ Animations and Game Logic</div>
+            </div>
+            <!-- Matrix Code -->
+            <div class="xray-code">
+              &lt;AnimationPlayer&gt;<br>
+              &nbsp;&nbsp;&lt;State: "Idle" /&gt;<br>
+              &nbsp;&nbsp;&lt;State: "Run" /&gt;<br>
+              &nbsp;&nbsp;if Input.is_action():<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;play("Run")<br>
+              &lt;/AnimationPlayer&gt;
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -468,36 +497,53 @@
             <div class="phone-notch"></div>
             
             <div class="phone-screen" id="mobile-screen">
-              <!-- State 1: Start Screen -->
-              <div class="app-ui" id="app-start">
-                <div class="app-icon">📱</div>
-                <h3 style="margin-bottom: 20px; color: #f8fafc;">Portfolio_App</h3>
-                <button class="btn btn-primary" onclick="bootApp()" style="padding: 8px 16px; font-size: 0.9rem;">Launch App</button>
-              </div>
               
-              <!-- State 2: Loading Sequence (Hidden) -->
-              <div class="app-ui hidden" id="app-loading">
-                <div class="spinner"></div>
-                <p class="terminal-text">Compiling assets...</p>
-                <p class="terminal-text" style="color: #94a3b8; font-size: 0.75rem; margin-top: 5px;">Connecting to C# backend</p>
-              </div>
-              
-              <!-- State 3: Active App (Hidden) -->
-              <div class="app-ui hidden" id="app-active" style="padding: 0;">
-                <div class="mobile-header" style="color: #f8fafc;">Home</div>
-                <div class="mobile-body">
-                  <div class="skeleton-line"></div>
-                  <div class="skeleton-line short"></div>
-                  
-                  <div class="mobile-card">
-                    <strong>Status:</strong> Sync Successful
-                    <br><br>
-                    <span style="color: #94a3b8;">Data retrieved from MS SQL Server via secure API endpoint.</span>
+              <!-- WRAP THE NORMAL UI IN THIS -->
+              <div class="hide-in-xray" style="width: 100%; height: 100%;">
+                <!-- State 1: Start Screen -->
+                <div class="app-ui" id="app-start">
+                  <div class="app-icon">📱</div>
+                  <h3 style="margin-bottom: 20px; color: #f8fafc;">Portfolio_App</h3>
+                  <button class="btn btn-primary" onclick="bootApp()" style="padding: 8px 16px; font-size: 0.9rem;">Launch App</button>
+                </div>
+                
+                <!-- State 2: Loading Sequence (Hidden) -->
+                <div class="app-ui hidden" id="app-loading">
+                  <div class="spinner"></div>
+                  <p class="terminal-text">Compiling assets...</p>
+                  <p class="terminal-text" style="color: #94a3b8; font-size: 0.75rem; margin-top: 5px;">Connecting to C# backend</p>
+                </div>
+                
+                <!-- State 3: Active App (Hidden) -->
+                <div class="app-ui hidden" id="app-active" style="padding: 0;">
+                  <div class="mobile-header" style="color: #f8fafc;">Home</div>
+                  <div class="mobile-body">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                    
+                    <div class="mobile-card">
+                      <strong>Status:</strong> Sync Successful
+                      <br><br>
+                      <span style="color: #94a3b8;">Data retrieved from MS SQL Server via secure API endpoint.</span>
+                    </div>
+                    
+                    <button class="btn btn-secondary" onclick="resetApp()" style="margin-top: 40px; font-size: 0.8rem; padding: 6px 12px;">Close App</button>
                   </div>
-                  
-                  <button class="btn btn-secondary" onclick="resetApp()" style="margin-top: 40px; font-size: 0.8rem; padding: 6px 12px;">Close App</button>
                 </div>
               </div>
+
+              <!-- THE MATRIX SKELETON CODE FOR THE PHONE -->
+              <div class="xray-code" style="font-size: 0.75rem;">
+                &lt;MobileApp&gt;<br>
+                &nbsp;&nbsp;&lt;Header title="Home"/&gt;<br>
+                &nbsp;&nbsp;&lt;FetchData<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;source="SQL_Server"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;await={true}<br>
+                &nbsp;&nbsp;/&gt;<br>
+                &nbsp;&nbsp;&lt;RenderUI /&gt;<br>
+                &lt;/MobileApp&gt;
+              </div>
+
             </div>
           </div>
         </div>
@@ -506,13 +552,68 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer id="contact" class="section-dark center-text">
+  <!-- CONTACT SECTION (Terminal Mail Client) -->
+  <section id="contact" class="section-dark" style="padding-top: 60px; padding-bottom: 60px;">
     <div class="container">
-      <h2>Let's build something.</h2>
-      <p>Currently open for software engineering roles.</p>
-      <br>
-      <a href="mailto:your.email@gmail.com" class="btn btn-primary">Get In Touch</a>
+      <h2 class="section-title scroll-hidden" style="text-align: center;">Execute // Ping_Me</h2>
+      
+      <div class="terminal-window scroll-hidden" style="max-width: 650px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">shimeih@comms-link: ~/mail_client</span>
+        </div>
+        
+        <div class="terminal-body" style="padding: 30px;">
+          <form id="terminal-contact-form" onsubmit="sendMail(event)">
+            
+            <div class="input-group">
+              <label>> Identify_User (Name):</label>
+              <input type="text" id="sender-name" name="name" required placeholder="e.g. John_Doe" class="terminal-input">
+            </div>
+            
+            <div class="input-group">
+              <label>> Return_Address (Email):</label>
+              <input type="email" id="sender-email" name="email" required placeholder="e.g. user@domain.com" class="terminal-input">
+            </div>
+
+            <div class="input-group">
+              <label>> Payload (Message):</label>
+              <textarea id="sender-msg" name="message" required placeholder="Initialize communication protocol here..." rows="4" class="terminal-input"></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="margin-top: 15px; width: 100%; font-size: 1rem;">[ Execute: Send_Packet ]</button>
+          </form>
+          
+          <!-- Hidden Success Message -->
+          <div id="mail-success" class="hidden" style="color: #27c93f; margin-top: 20px; font-family: 'Consolas', monospace; text-align: center; background: rgba(39, 201, 63, 0.1); padding: 15px; border-radius: 4px; border: 1px solid #27c93f;">
+            > Packet securely transmitted. Awaiting response...
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OS FOOTER (Status Bar & Network Links) -->
+  <footer class="os-footer">
+    <div class="footer-container">
+      
+      <div class="footer-sysinfo">
+        <span class="pulse-dot"></span> System Online | Dipolog City, PH
+      </div>
+      
+      <div class="footer-links">
+        <a href="https://github.com/Helexium" target="_blank" class="foot-link">GitHub</a>
+        <a href="https://www.linkedin.com/in/shimeih-klein-montefalcon-03b398418" target="_blank" class="foot-link">LinkedIn</a>
+        <a href="https://www.facebook.com/kleinisnotklein" target="_blank" class="foot-link">Facebook</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=Shimeihkleincamiguin.montefalcon@dmc.edu.ph" target="_blank" class="foot-link">Email</a>
+      </div>
+      
+      <div class="footer-copyright">
+        © 2026 Shimeih_OS. All rights reserved.
+      </div>
+      
     </div>
   </footer>
 
@@ -543,6 +644,45 @@
     <span class="close-lightbox">&times;</span>
     <img class="lightbox-content" id="lightbox-img">
   </div>
+
+  <!-- CV VIEWER MODAL (Real-Time PDF Printing) -->
+  <div id="cv-modal" class="modal hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); z-index: 2500; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+    <div class="modal-content" style="background: #1e293b; border: 1px solid #27c93f; border-radius: 12px; width: 95%; max-width: 900px; height: 85vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.6); overflow: hidden;">
+      
+      <!-- OS Window Header -->
+      <div style="background-color: #0f172a; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; z-index: 20;">
+        <div style="color: #27c93f; font-family: 'Consolas', monospace; font-size: 0.9rem;">
+          ~/shimeih_os/Print_Spooler.exe
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">      
+          <button onclick="closeCV()" style="background: none; border: none; color: #ff5f56; font-size: 1.5rem; cursor: pointer; font-weight: bold; line-height: 1;">×</button>
+        </div>
+      </div>
+      
+      <!-- Viewer Body (Where the magic happens) -->
+      <div style="flex-grow: 1; width: 100%; background: #0f172a; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding-top: 20px;">
+        
+        <!-- The Wide Printer Machine -->
+        <div class="wide-printer">
+          <div class="printer-slit-wide"></div>
+          <div class="printer-lights">
+            <span class="light green-blink"></span>
+          </div>
+        </div>
+
+        <!-- The Real PDF (Starts at 0 height and grows to reveal the iframe) -->
+        <div id="real-printed-cv" class="real-printed-cv">
+          <iframe src="Montefalcon_Resume.pdf" class="real-pdf-frame"></iframe>
+        </div>
+
+        <p id="print-status-text" class="print-status-text" style="position: absolute; bottom: 20px;">Printing Shimeih_CV.pdf...</p>
+
+      </div>
+    </div>
+  </div>
+  
+  <!-- DEVELOPER MODE TOGGLE -->
+  <button id="dev-toggle" class="dev-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">[ { } Enter Dev Mode ]</button>
   
   <script>
     function toggleCard(clickedCard) {
@@ -602,7 +742,7 @@
       resetTimer(); 
     });
 
-    // --- X-RAY / MATRIX DEV MODE LOGIC ---
+    // --- MATRIX SKELETAL DEV MODE LOGIC ---
     const devToggle = document.getElementById('dev-toggle');
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
@@ -639,7 +779,6 @@
         const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         
-        // Randomly reset a drop to the top of the screen
         if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
@@ -649,15 +788,15 @@
 
     // Adjust the canvas if the user resizes their window
     window.addEventListener('resize', () => {
-      if(document.body.classList.contains('xray-active')) initMatrix();
+      if(document.body.classList.contains('dev-mode-active')) initMatrix();
     });
 
     // The Toggle Trigger
     devToggle.addEventListener('click', () => {
-      document.body.classList.toggle('xray-active');
+      document.body.classList.toggle('dev-mode-active');
       
-      if(document.body.classList.contains('xray-active')) {
-        devToggle.innerText = "[ X ] Exit X-Ray";
+      if(document.body.classList.contains('dev-mode-active')) {
+        devToggle.innerText = "[ X ] Exit Matrix";
         canvas.classList.remove('hidden');
         initMatrix();
         matrixInterval = setInterval(drawMatrix, 33); // Runs at ~30 FPS
@@ -1020,9 +1159,9 @@
       });
     }, scrollObserverOptions);
 
-    // Make sure we are watching the new swoop element!
+    // Make sure we are watching the new swoop element and the contact terminal!
     const elementsToAnimate = document.querySelectorAll(
-      'section h2, .sandbox-block, .video-card, .timeline-commit, .scroll-swoop-hidden'
+      'section h2, .sandbox-block, .video-card, .timeline-commit, .scroll-swoop-hidden, #contact .terminal-window'
     );
     
     elementsToAnimate.forEach(el => {
@@ -1032,6 +1171,7 @@
       }
       scrollObserver.observe(el);
     });
+    
 
     // --- CLICK OUTSIDE TO RESET LOGIC ---
     document.addEventListener('mousedown', (e) => {
@@ -1044,11 +1184,37 @@
     const rebootBtn = document.getElementById('reboot-btn');
 
     // 1. Only show the button if they have scrolled down past the hero section
+   // --- FLOATING BUTTON CONTROLLER & COLLISION AVOIDANCE ---
     window.addEventListener('scroll', () => {
+      const rebootBtn = document.getElementById('reboot-btn');
+      const devBtn = document.getElementById('dev-toggle'); 
+      const footer = document.querySelector('.os-footer');
+
+      // 1. Show the reboot button only after scrolling down
       if (window.scrollY > 400) {
         rebootBtn.classList.add('show-reboot');
       } else {
         rebootBtn.classList.remove('show-reboot');
+      }
+
+      // 2. Prevent buttons from overlapping the footer
+      if (footer && rebootBtn && devBtn) {
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // If the footer comes into the screen
+        if (footerRect.top < windowHeight) {
+          // Calculate exactly how many pixels of the footer are showing
+          const overlap = windowHeight - footerRect.top;
+          
+          // Push both buttons up by that amount (Base 20px + overlap)
+          rebootBtn.style.bottom = `${20 + overlap}px`;
+          devBtn.style.bottom = `${20 + overlap}px`;
+        } else {
+          // Reset them to their normal fixed bottom positions
+          rebootBtn.style.bottom = '20px';
+          devBtn.style.bottom = '20px';
+        }
       }
     });
 
@@ -1092,6 +1258,147 @@
           resetApp();
         }
       }, 300);
+    }
+    // --- INTERACTIVE CV DOWNLOAD ENGINE ---
+    function downloadCV() {
+      const btn = document.getElementById('cv-btn');
+      
+      // Safety check: don't run if it's already running
+      if (btn.classList.contains('is-running')) return;
+
+      // Lock the button into the active terminal state
+      btn.classList.add('is-running');
+
+      // The terminal text sequence
+      const stages = [
+        "> Establishing connection...",
+        "> Compiling Shimeih_CV.pdf...",
+        "> Decrypting file...",
+        "[ OK ] Downloading..."
+      ];
+
+      let step = 0;
+      btn.innerText = stages[step];
+
+      // Cycle through the text stages every 700 milliseconds
+      const interval = setInterval(() => {
+        step++;
+        if (step < stages.length) {
+          btn.innerText = stages[step];
+        } else {
+          // Stop the timer
+          clearInterval(interval);
+          
+          // Trigger the actual hidden file download
+          const link = document.createElement('a');
+          link.href = 'Montefalcon_Resume.pdf'; // Ensure your actual resume.pdf is in the root folder
+          link.download = 'Shimeih_Montefalcon_CV.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          // Reset the button back to normal after 2.5 seconds
+          setTimeout(() => {
+            btn.innerText = "Execute: fetch_CV()";
+            btn.classList.remove('is-running');
+          }, 2500);
+        }
+      }, 700); 
+    }
+
+    // --- REAL-TIME PDF PRINTER ENGINE ---
+    let currentZoom = 1;
+
+    function downloadCV() {
+      // 1. Open the Modal
+      const cvModal = document.getElementById('cv-modal');
+      cvModal.style.display = 'flex';
+      cvModal.classList.remove('hidden');
+
+      const cvContainer = document.getElementById('real-printed-cv');
+      const statusText = document.getElementById('print-status-text');
+      
+      // 2. Reset states (if opened previously)
+      cvContainer.classList.remove('is-printing', 'done-printing');
+      currentZoom = 1;
+      cvContainer.style.transform = `scale(${currentZoom})`;
+      statusText.innerText = 'Printing Shimeih_CV.pdf...';
+      statusText.style.display = 'block';
+
+      // 3. Start the printing animation
+      setTimeout(() => {
+        cvContainer.classList.add('is-printing');
+      }, 300);
+
+      // 4. Finish printing and unlock the PDF
+      setTimeout(() => {
+        cvContainer.classList.add('done-printing');
+        statusText.innerText = '[ OK ] Print Complete. Ready for viewing.';
+        
+        // Hide the status text after a moment
+        setTimeout(() => {
+          statusText.style.display = 'none';
+        }, 2500);
+      }, 3800); // 3.5s transition + 300ms delay
+    }
+
+    function closeCV() {
+      const cvModal = document.getElementById('cv-modal');
+      cvModal.style.display = 'none';
+      cvModal.classList.add('hidden');
+    }
+
+    function zoomCV(step) {
+      const cvContainer = document.getElementById('real-printed-cv');
+      
+      currentZoom += step;
+      // Limits zoom to keep it readable and inside the window
+      currentZoom = Math.max(0.6, Math.min(currentZoom, 2.0));
+      
+      cvContainer.style.transform = `scale(${currentZoom})`;
+    }
+    // --- LIVE TERMINAL MAIL CLIENT ENGINE (FORMSPREE) ---
+    async function sendMail(event) {
+      event.preventDefault(); 
+      
+      const btn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('mail-success');
+      const form = document.getElementById('terminal-contact-form');
+      
+      // Change button state to "sending"
+      btn.innerText = "[ Transmitting to Server... ]";
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0.7";
+
+      // Package the data
+      const formData = new FormData(form);
+
+      try {
+        // REPLACE THE URL BELOW WITH YOUR ACTUAL FORMSPREE ENDPOINT
+        const response = await fetch("https://formspree.io/f/myeeeajq", {
+          method: "POST",
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          // Success! Hide form, show terminal confirmation
+          form.style.display = "none";
+          successMsg.classList.remove('hidden');
+        } else {
+          // Formspree rejected it (usually means setup error)
+          btn.innerText = "[ System Error: Transmission Rejected ]";
+          btn.style.backgroundColor = "#ff5f56";
+          btn.style.borderColor = "#ff5f56";
+        }
+      } catch (error) {
+        // Network error (user is offline)
+        btn.innerText = "[ System Error: Network Offline ]";
+        btn.style.backgroundColor = "#ff5f56";
+        btn.style.borderColor = "#ff5f56";
+      }
     }
   </script>
 

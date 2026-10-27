@@ -556,6 +556,7 @@ html {
   z-index: 900; /* Stays above the page, but strictly below the navbar and modals */
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: all 0.3s ease, bottom 0.1s linear;
 }
 
 .dev-btn:hover {
@@ -563,99 +564,84 @@ html {
   color: #0f172a;
   box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
+/* ========================================= */
+/* --- MATRIX DEV MODE (SKELETAL) --- */
+/* ========================================= */
 
-/* --- X-RAY / MATRIX DEV MODE --- */
 #matrix-bg {
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1; /* Locks the Matrix rain behind the website */
+  z-index: -1; /* Locks the Matrix rain safely behind the website */
   pointer-events: none;
 }
 
-/* When active, strip the UI down to glowing wireframes */
-body.xray-active .section-dark,
-body.xray-active .section-light,
-body.xray-active footer {
-  background-color: rgba(0, 15, 0, 0.75) !important; 
-  backdrop-filter: blur(2px);
+/* Hide the skeletal code in normal view */
+.xray-code {
+  display: none;
+}
+
+body.dev-mode-active * {
+  /* Draws a neon green wireframe around every single element */
+  outline: 1px solid rgba(0, 255, 0, 0.4) !important;
+  
+  /* Makes all backgrounds dark green transparent */
+  background-color: rgba(0, 15, 0, 0.8) !important;
+  box-shadow: none !important;
 }
 
 /* Force all text and lines to glow Matrix Green */
-body.xray-active h1, 
-body.xray-active h2, 
-body.xray-active h3, 
-body.xray-active p, 
-body.xray-active span,
-body.xray-active div {
+body.dev-mode-active h1, 
+body.dev-mode-active h2, 
+body.dev-mode-active h3, 
+body.dev-mode-active p, 
+body.dev-mode-active span,
+body.dev-mode-active div,
+body.dev-mode-active a {
   color: #0f0 !important; 
   text-shadow: 0 0 5px #0f0;
   border-color: #0f0 !important;
 }
 
-/* Turn solid cards into dashed blueprints */
-body.xray-active .tech-card,
-body.xray-active .project-card,
-body.xray-active .terminal-window,
-body.xray-active .mini-card,
-body.xray-active .phone-frame,
-body.xray-active .video-card {
-  background-color: transparent !important;
-  border: 1px dashed #0f0 !important;
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.1) inset !important;
-}
-
-/* Transform buttons */
-body.xray-active .btn {
-  background: transparent !important;
-  color: #0f0 !important;
-  border: 1px solid #0f0 !important;
-  box-shadow: 0 0 10px #0f0;
-}
-
-/* The X-Ray Image Filter */
-body.xray-active img,
-body.xray-active video {
-  /* This combination turns regular images into glowing green x-rays */
-  filter: grayscale(100%) contrast(1.5) sepia(100%) hue-rotate(80deg) opacity(0.7) !important;
+/* Turn images/videos into glowing green x-rays */
+body.dev-mode-active img:not(.hub-img), 
+body.dev-mode-active iframe, 
+body.dev-mode-active video {
+  filter: grayscale(100%) contrast(1.5) sepia(100%) hue-rotate(80deg) opacity(0.6) !important;
   mix-blend-mode: screen;
 }
 
-body.xray-active .dev-btn {
-  background: #000 !important;
-  border: 1px solid #0f0 !important;
-}
-/* --- SKELETAL CODE REVEAL --- */
-/* 1. Hide the skeletal code in normal view */
+/* --- UNIVERSAL "BECOME THE CODE" EFFECT --- */
 .xray-code {
   display: none;
   width: 100%;
   height: 100%;
-  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-direction: column;
   justify-content: center;
-  font-family: 'Consolas', monospace;
-  font-size: 0.75rem;
-  color: #0f0;
-  text-shadow: 0 0 5px #0f0;
-  line-height: 1.4;
-  text-align: left;
+  align-items: flex-start; /* Aligns code to the left like an IDE */
 }
 
-/* 2. When X-Ray is active, hide the real picture */
-body.xray-active .profile-img {
-  display: none !important;
+/* Hides the normal UI elements when Dev Mode is active */
+body.dev-mode-active .hide-in-xray {
+  display: none !important; 
 }
 
-/* 3. When X-Ray is active, show the skeletal code */
-body.xray-active .xray-code {
+/* Reveals the skeletal code when Dev Mode is active */
+body.dev-mode-active .xray-code {
   display: flex !important;
+  font-family: 'Consolas', monospace;
+  font-size: 0.85rem;
+  color: #0f0 !important;
+  text-shadow: 0 0 5px #0f0;
+  background-color: rgba(0, 20, 0, 0.9) !important;
+  line-height: 1.5;
 }
 
-/* Optional: Remove the circle border in code mode for a true terminal feel */
-body.xray-active .profile-wrapper {
-  border-radius: 0 !important;
-  border: 1px dashed #0f0 !important;
+body.dev-mode-active .profile-wrapper {
+  border-radius: 0 !important; /* Turns the circle avatar into a square */
 }
 
 .hidden {
@@ -1521,6 +1507,7 @@ body.xray-active .profile-wrapper {
   opacity: 0;
   pointer-events: none;
   transform: translateY(20px);
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, bottom 0.1s linear;
 }
 
 #reboot-btn.show-reboot {
@@ -1533,4 +1520,392 @@ body.xray-active .profile-wrapper {
   background-color: #ff5f56;
   color: #fff;
   box-shadow: 0 0 15px rgba(255, 95, 86, 0.4);
+}
+
+/* --- INTERACTIVE CV BUTTON --- */
+#cv-btn {
+  font-family: 'Consolas', monospace;
+  transition: all 0.3s ease;
+  min-width: 220px; /* Prevents the button from shrinking/growing wildly during text swap */
+  text-align: left;
+}
+
+#cv-btn.is-running {
+  background-color: #0f172a;
+  color: #27c93f; /* Terminal Green */
+  border-color: #27c93f;
+  pointer-events: none; /* Prevents clicking multiple times */
+  box-shadow: 0 0 15px rgba(39, 201, 63, 0.4);
+  animation: cv-pulse 1s infinite alternate;
+}
+
+@keyframes cv-pulse {
+  from { box-shadow: 0 0 10px rgba(39, 201, 63, 0.2); }
+  to { box-shadow: 0 0 20px rgba(39, 201, 63, 0.6); }
+}
+
+/* --- PRINTER ANIMATION LOGIC --- */
+.printer-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.printer-machine {
+  width: 180px;
+  height: 70px;
+  background-color: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 8px;
+  position: relative;
+  z-index: 10;
+  box-shadow: inset 0 -10px 15px rgba(0,0,0,0.5), 0 20px 30px rgba(0,0,0,0.7);
+}
+
+/* The hole the paper comes out of */
+.printer-slit {
+  width: 120px;
+  height: 5px;
+  background-color: #0f172a;
+  margin: 15px auto 0 auto;
+  border-radius: 2px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.printer-lights {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.light.green-blink {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: #27c93f;
+  border-radius: 50%;
+  animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 0.3; box-shadow: 0 0 0 transparent; }
+  to { opacity: 1; box-shadow: 0 0 8px #27c93f; }
+}
+
+/* --- REAL-TIME PDF PRINTER --- */
+.wide-printer {
+  width: 90%;
+  max-width: 800px;
+  height: 60px;
+  background-color: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  z-index: 10;
+  box-shadow: inset 0 -10px 15px rgba(0,0,0,0.5), 0 20px 30px rgba(0,0,0,0.8);
+}
+
+.printer-slit-wide {
+  width: 95%;
+  height: 6px;
+  background-color: #0f172a;
+  margin: 45px auto 0 auto;
+  border-radius: 3px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.9);
+}
+
+.printer-lights {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+
+.light.green-blink {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #27c93f;
+  border-radius: 50%;
+  animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 0.3; box-shadow: 0 0 0 transparent; }
+  to { opacity: 1; box-shadow: 0 0 10px #27c93f; }
+}
+
+/* The container that reveals the actual PDF */
+.real-printed-cv {
+  width: 85%;
+  max-width: 760px;
+  height: 0px; /* Starts completely hidden */
+  background-color: #fff;
+  margin-top: -5px; /* Tucks it directly into the slit */
+  position: relative;
+  z-index: 5;
+  overflow: hidden; /* Hides the bottom of the PDF until it prints */
+  
+  /* Linear transition makes it steady like a real machine */
+  transition: height 3.5s linear; 
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+  transform-origin: top center;
+}
+
+/* This is applied via JavaScript to trigger the slide-out */
+.real-printed-cv.is-printing {
+  height: 70vh; /* Adjusts based on screen height */
+}
+
+.real-pdf-frame {
+  width: 100%;
+  height: 70vh; /* Must match the is-printing height */
+  border: none;
+  pointer-events: none; /* Prevents scrolling while it's still printing */
+}
+
+/* Re-enables scrolling inside the PDF once it's done */
+.real-printed-cv.done-printing .real-pdf-frame {
+  pointer-events: auto;
+}
+
+.print-status-text {
+  color: #38bdf8;
+  font-family: 'Consolas', monospace;
+  font-size: 0.9rem;
+  animation: pulse 1s infinite alternate;
+}
+
+/* --- TERMINAL CONTACT FORM --- */
+.input-group {
+  margin-bottom: 25px;
+}
+
+.input-group label {
+  display: block;
+  color: #38bdf8;
+  font-family: 'Consolas', monospace;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.terminal-input {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  font-family: 'Consolas', monospace;
+  padding: 12px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  resize: vertical;
+}
+
+.terminal-input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.2), 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.terminal-input::placeholder {
+  color: #475569;
+}
+
+/* --- OS SYSTEM FOOTER --- */
+.os-footer {
+  background-color: #0b1121;
+  border-top: 1px solid #1e293b;
+  padding: 25px 0;
+  font-family: 'Consolas', monospace;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+  .footer-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.footer-sysinfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #27c93f;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #27c93f;
+}
+
+.footer-links {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.foot-link {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Adds a subtle underline effect on hover */
+.foot-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: #38bdf8;
+  transition: width 0.3s ease;
+}
+
+.foot-link:hover {
+  color: #38bdf8;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+.foot-link:hover::after {
+  width: 100%;
+}
+/* ========================================= */
+/* --- MOBILE RESPONSIVENESS PATCH --- */
+/* ========================================= */
+
+@media (max-width: 800px) {
+  
+  /* 1. Navbar & Navigation */
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.85rem;
+  }
+  
+  #navbar {
+    padding: 10px;
+  }
+
+  /* 2. Hero Section (Stack the text and terminal) */
+  .hero-split {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  
+  .profile-name-group {
+    justify-content: center;
+  }
+  
+  .button-group-left {
+    justify-content: center;
+  }
+
+  /* 3. The Desktop Monitor */
+  .desktop-workspace {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  .desktop-monitor {
+    border-radius: 8px; /* Slightly softer corners on mobile */
+  }
+
+  /* 4. Experience Timeline (Stack the IDE Sidebar and Body) */
+  .ide-layout {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ide-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 20px;
+  }
+  
+  .commit-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  /* 5. Staged Changes (Stack the videos and phone emulator) */
+  .video-showcase-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .sandbox-block.hero-split {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 6. Topology Map */
+  .network-viewport {
+    height: 450px; /* Keep it contained on phones */
+  }
+  
+  /* Make the nodes slightly smaller so they fit better */
+  .category-node .node-content {
+    transform: scale(0.85);
+  }
+
+  /* 7. Modals & Printer Window */
+  .modal-content {
+    width: 100%;
+    height: 95vh;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  /* Shrink the printer machine down for mobile */
+  .wide-printer {
+    width: 95%;
+  }
+  
+  .real-printed-cv {
+    width: 95%;
+  }
+
+  /* 8. Floating Buttons */
+  #dev-toggle, #reboot-btn {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+  }
+}
+
+/* For extremely small screens (like older iPhones) */
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .terminal-title {
+    font-size: 0.75rem;
+  }
 }
