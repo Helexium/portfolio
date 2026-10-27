@@ -2038,4 +2038,28 @@ body.dev-mode-active .profile-wrapper {
   .commit-content {
     overflow: hidden !important; 
   }
+
+  /* --- FIX PROFILE HEADER & TEXT ALIGNMENT ON MOBILE --- */
+  .profile-name-group {
+    flex-direction: column !important; /* Stacks the picture above the name */
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 15px !important;
+  }
+
+  #hero h1 {
+    font-size: 2.2rem !important; /* Scales down the name slightly to fit the screen */
+  }
+
+  #hero .hero-text {
+    text-align: center !important; /* Centers the subtitle and bio text */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-group-left {
+    justify-content: center !important; /* Centers the Execute CV button */
+    width: 100%;
+  }
 }
