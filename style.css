@@ -490,16 +490,6 @@ html {
   margin-top: 20px;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 900px) {
-  .hero-split {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-text { text-align: center; }
-  .button-group-left { justify-content: center; }
-}
-
 /* --- LEVITATING PROFILE PICTURE --- */
 .profile-wrapper {
   width: 140px;  /* Increased for a bigger profile picture */
@@ -1352,12 +1342,6 @@ body.dev-mode-active .profile-wrapper {
   flex-grow: 1;
 }
 
-/* Make it stack neatly on mobile screens */
-@media (max-width: 768px) {
-  .ide-layout { flex-direction: column; }
-  .ide-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #334155; }
-}
-
 /* --- THE FLUID SWOOP ANIMATION --- */
 .scroll-swoop-hidden {
   opacity: 0;
@@ -1795,138 +1779,4 @@ body.dev-mode-active .profile-wrapper {
 
 .foot-link:hover::after {
   width: 100%;
-}
-/* ========================================= */
-/* --- MOBILE RESPONSIVENESS PATCH --- */
-/* ========================================= */
-
-@media (max-width: 800px) {
-  
-  /* 1. Navbar & Navigation */
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    font-size: 0.85rem;
-  }
-  
-  #navbar {
-    padding: 10px;
-  }
-
-  /* 2. Hero Section (Stack the text and terminal) */
-  .hero-split {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    gap: 40px;
-  }
-  
-  .profile-name-group {
-    justify-content: center;
-  }
-  
-  .button-group-left {
-    justify-content: center;
-  }
-
-  /* 3. The Desktop Monitor */
-  .desktop-workspace {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 20px;
-    padding: 15px;
-  }
-  
-  .desktop-monitor {
-    border-radius: 8px; /* Slightly softer corners on mobile */
-  }
-
-  /* 4. Experience Timeline (Stack the IDE Sidebar and Body) */
-  .ide-layout {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .ide-sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 20px;
-  }
-  
-  .commit-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-  }
-
-  /* 5. Staged Changes (Stack the videos and phone emulator) */
-  .video-showcase-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .sandbox-block.hero-split {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* 6. Topology Map */
-  .network-viewport {
-    height: 450px; /* Keep it contained on phones */
-  }
-  
-  /* Make the nodes slightly smaller so they fit better */
-  .category-node .node-content {
-    transform: scale(0.85);
-  }
-
-  /* 7. Modals & Printer Window */
-  .modal-content {
-    width: 100%;
-    height: 95vh;
-    padding: 15px;
-    border-radius: 8px;
-  }
-  
-  /* Shrink the printer machine down for mobile */
-  .wide-printer {
-    width: 95%;
-  }
-  
-  .real-printed-cv {
-    width: 95%;
-  }
-
-  /* 8. Floating Buttons */
-  #dev-toggle, #reboot-btn {
-    font-size: 0.75rem;
-    padding: 8px 12px;
-  }
-}
-
-/* For extremely small screens (like older iPhones) */
-@media (max-width: 480px) {
-  .section-title {
-    font-size: 1.8rem;
-  }
-  
-  .terminal-title {
-    font-size: 0.75rem;
-  }
-}
-
-@media (max-width: 768px) {
-    /* Stack navigation and hero content vertically */
-    .hero-container, .nav-links, .profile-layout {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    /* Adjust heading sizes for smaller screens */
-    h1 {
-        font-size: 2rem !important;
-    }
 }
