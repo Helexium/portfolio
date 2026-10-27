@@ -4,6 +4,12 @@ html {
   scroll-padding-top: 80px; /* Prevents the navbar from hiding the section headers */
 }
 
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100vw;
+}
+
 /* --- NAVIGATION BAR --- */
 #navbar {
   position: fixed;
@@ -606,6 +612,15 @@ html {
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   transition: all 0.3s ease, bottom 0.1s linear;
+}
+
+.dev-btn, #reboot-btn {
+  max-width: 45vw !important; /* Prevents buttons from crossing the center of the screen */
+  font-size: clamp(0.6rem, 2.5vw, 0.85rem) !important; /* Scales text down on small screens */
+  padding: 10px 3vw !important;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .dev-btn:hover {
@@ -1996,19 +2011,27 @@ body.dev-mode-active .profile-wrapper {
 
   /* --- FIX EXPERIENCE IDE WINDOW ON MOBILE --- */
   .ide-layout {
-    flex-direction: column !important; /* Forces the sidebar and body to stack vertically */
+    flex-direction: column !important;
+    flex-wrap: nowrap !important; 
   }
 
   .ide-sidebar {
-    width: 100% !important; /* Makes the sidebar take up the full width at the top */
-    border-right: none !important; /* Removes the desktop vertical divider line */
-    border-bottom: 1px solid #334155 !important; /* Adds a horizontal divider line instead */
+    width: 100% !important; 
+    flex: none !important;
+    border-right: none !important; /* Removes the desktop vertical line */
+    border-bottom: 1px solid #334155 !important; 
   }
 
   .ide-body {
-    padding: 15px !important; /* Reduces internal padding slightly so text fits better on phones */
     width: 100% !important;
+    flex: none !important;
+    padding: 20px !important; /* Slightly tighter padding for mobile screens */
     box-sizing: border-box !important;
+  }
+  
+  /* Ensure the commit cards don't overflow the screen width */
+  .commit-content {
+    overflow: hidden !important; 
   }
   
   /* Ensure the commit cards don't overflow the screen width */
