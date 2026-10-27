@@ -13,11 +13,20 @@
   <!-- FIXED NAVIGATION BAR -->
   <nav id="navbar">
     <div class="nav-brand">Shimeih_Klein_OS</div>
-    <ul class="nav-links">
+    
+    <!-- THE HAMBURGER BUTTON -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- THE NAVIGATION LINKS -->
+    <ul class="nav-links" id="nav-links">
       <li><a href="#projects">Featured Projects</a></li>
       <li><a href="#skills">Tech Stack</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#sandbox">Upcoming Projects</a></li>
+      <li><a href="#upcoming-projects">Upcoming Projects</a></li>
     </ul>
   </nav>
 <!-- DEVELOPER MODE TOGGLE -->
@@ -47,7 +56,7 @@
               &nbsp;&nbsp;src="avatar" /&gt;
             </div>
           </div> 
-          <h1 class="accent-color">Shimeih Test<br>Montefalcon</h1>
+          <h1 class="accent-color">Shimeih Klein<br>Montefalcon</h1>
         </div>
 
         <h2 style="color: #38bdf8; margin-bottom: 20px;">Full Stack Software Engineer</h2>
@@ -999,6 +1008,10 @@
 
     // 1. Centering Zoom Logic (Fixes the out-of-bounds issue)
     function focusNode(clickedNode, xPercent, yPercent) {
+  // NEW MOBILE INTERCEPT: Stop desktop zoom from running on phones
+  if (window.innerWidth <= 800) {
+    return; // Do nothing on tap; the scroll sensor handles everything automatically!
+  }
       document.querySelectorAll('.category-node').forEach(node => node.classList.remove('active'));
       clickedNode.classList.add('active');
       networkViewport.classList.add('zoomed');
@@ -1400,6 +1413,168 @@
         btn.style.borderColor = "#ff5f56";
       }
     }
+    // 1. Centering Zoom Logic (Fixes the out-of-bounds issue)
+    function focusNode(clickedNode, xPercent, yPercent) {
+      
+      // Clear previous active nodes
+      document.querySelectorAll('.category-node').forEach(node => node.classList.remove('active'));
+      
+      // Make the clicked node active (This triggers the CSS wire animation and accordion!)
+      clickedNode.classList.add('active');
+      
+      // NEW LINE: If on a mobile device, stop here! Let the CSS do the work.
+      if (window.innerWidth <= 800) return; 
+
+      // --- Desktop Zooming Logic Below ---
+      networkViewport.classList.add('zoomed');
+      scale = 1.6; 
+      
+      const mapWidth = networkViewport.offsetWidth;
+      const mapHeight = networkViewport.offsetHeight;
+      
+      currentX = ((50 - xPercent) / 100) * mapWidth * scale;
+      currentY = ((50 - yPercent) / 100) * mapHeight * scale;
+      
+      updateTransform();
+      resetBtn.classList.remove('hidden');
+    }
+
+    // --- MOBILE MAGNETIC SCROLL SENSOR ---
+const viewportSensor = document.querySelector('.network-viewport');
+
+viewportSensor.addEventListener('scroll', () => {
+  // Only activate this logic on mobile devices
+  if (window.innerWidth > 800) return;
+
+  // Find the exact vertical center of the window
+  const viewportCenter = viewportSensor.getBoundingClientRect().top + (viewportSensor.clientHeight / 2);
+  let closestNode = null;
+  let minDistance = Infinity;
+
+  // Measure the distance of every node to the center line
+  document.querySelectorAll('.category-node').forEach(node => {
+    const rect = node.getBoundingClientRect();
+    // We measure against the top 25px (the header text) so it doesn't glitch when the box expands!
+    const nodeCenter = rect.top + 25; 
+    const distance = Math.abs(viewportCenter - nodeCenter);
+
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestNode = node;
+    }
+  });
+
+  // If a new node crosses the center, open it and close the rest
+  if (closestNode && !closestNode.classList.contains('active')) {
+    document.querySelectorAll('.category-node').forEach(n => n.classList.remove('active'));
+    closestNode.classList.add('active');
+  }
+});
+
+// --- MOBILE INFINITE SCROLL & MAGNETIC UI ---
+function initMobileTechStack() {
+  if (window.innerWidth > 800) return;
+
+  const viewport = document.querySelector('.network-viewport');
+  const map = document.querySelector('.network-map');
+  const centerNode = document.querySelector('.center-node');
+  
+  // 1. Lock the profile picture by moving it out of the scrollable track
+  if (centerNode.parentElement === map) {
+    viewport.appendChild(centerNode);
+  }
+
+  // 2. Clone the nodes to create the Infinite Loop illusion
+  const originalNodes = Array.from(document.querySelectorAll('.category-node'));
+  const setSize = originalNodes.length;
+  
+  if (document.querySelectorAll('.category-node').length === setSize) {
+    for (let i = 0; i < 2; i++) {
+      originalNodes.forEach(node => {
+        const clone = node.cloneNode(true);
+        clone.classList.remove('active');
+        map.appendChild(clone);
+      });
+    }
+  }
+
+  let scrollTimeout;
+
+  // 3. Center Detection & Teleportation Engine
+  map.addEventListener('scroll', () => {
+    const allNodes = document.querySelectorAll('.category-node');
+    
+    // Instantly close all nodes while spinning the wheel
+    allNodes.forEach(n => n.classList.remove('active'));
+    
+    // Clear the timer while scrolling
+    clearTimeout(scrollTimeout);
+
+    // 4. The Infinite Loop Math (Handled instantly to avoid hitting the wall)
+    const firstNode = allNodes[0];
+    const firstOfSecondSet = allNodes[setSize];
+    const setHeight = firstOfSecondSet.offsetTop - firstNode.offsetTop;
+    
+    if (map.scrollTop > firstOfSecondSet.offsetTop + (setHeight * 0.8)) {
+      map.scrollTop -= setHeight;
+    } else if (map.scrollTop < firstNode.offsetTop + (setHeight * 0.2)) {
+      map.scrollTop += setHeight;
+    }
+
+    // 5. Fire the connection ONLY when the wheel stops spinning
+    scrollTimeout = setTimeout(() => {
+      const viewportCenter = viewport.getBoundingClientRect().top + (viewport.clientHeight / 2);
+      let closestNode = null;
+      let minDistance = Infinity;
+      
+      // Find the perfectly snapped node
+      allNodes.forEach(node => {
+        const rect = node.getBoundingClientRect();
+        // Since the header is strictly 64px, its center is always top + 32!
+        const nodeHeaderCenter = rect.top + 32; 
+        const distance = Math.abs(viewportCenter - nodeHeaderCenter);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestNode = node;
+        }
+      });
+
+      // If it is perfectly aligned (distance is tiny), connect it!
+      if (closestNode && minDistance < 15) {
+        closestNode.classList.add('active');
+      }
+    }, 150);
+  });
+  
+  // Set initial scroll position to the exact middle set
+  setTimeout(() => {
+    const allNodes = document.querySelectorAll('.category-node');
+    const startNode = allNodes[setSize]; 
+    map.scrollTop = startNode.offsetTop - (viewport.clientHeight / 2) + 32;
+  }, 100);
+}
+
+window.addEventListener('load', initMobileTechStack);
+
+// --- HAMBURGER MENU LOGIC ---
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+const navItems = document.querySelectorAll('.nav-links a');
+
+// Toggle the menu when clicking the burger icon
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+// Automatically close the menu when a link is clicked
+navItems.forEach(item => {
+  item.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('active');
+  });
+});
   </script>
 
 </body>
