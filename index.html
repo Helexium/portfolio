@@ -664,6 +664,9 @@
           ~/shimeih_os/Print_Spooler.exe
         </div>
         <div style="display: flex; gap: 15px; align-items: center;">      
+          <!-- NEW: Explicit Download Button for Mobile -->
+          <button onclick="forceDownload()" style="background-color: #38bdf8; color: #0f172a; border: none; padding: 5px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.8rem; font-family: 'Consolas', monospace;">[📥 Download]</button>
+          
           <button onclick="closeCV()" style="background: none; border: none; color: #ff5f56; font-size: 1.5rem; cursor: pointer; font-weight: bold; line-height: 1;">×</button>
         </div>
       </div>
@@ -1575,6 +1578,16 @@ navItems.forEach(item => {
     navLinks.classList.remove('active');
   });
 });
+
+// --- FORCE NATIVE DOWNLOAD ---
+function forceDownload() {
+  const link = document.createElement('a');
+  link.href = 'Montefalcon_Resume.pdf'; // Must match your exact PDF file name
+  link.download = 'Shimeih_Montefalcon_CV.pdf'; // The name the file will save as
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
   </script>
 
 </body>

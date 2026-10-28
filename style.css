@@ -2072,4 +2072,21 @@ body.dev-mode-active .profile-wrapper {
     justify-content: center !important;
     width: 100% !important;
   }
+
+  /* --- FIX MOBILE PDF PRINTER CUT-OFF --- */
+  .modal-content {
+    width: 100% !important; /* Maximize modal width on phones */
+    padding: 0 !important;
+  }
+  
+  .real-printed-cv {
+    width: 100% !important;
+    overflow-x: auto !important; /* Enables horizontal swiping */
+    -webkit-overflow-scrolling: touch !important; /* Smooth momentum scrolling on iOS */
+  }
+
+  .real-pdf-frame {
+    width: 100% !important;
+    min-width: 600px !important; /* Forces the PDF to render fully, allowing you to scroll to see the right side */
+  }
 }
