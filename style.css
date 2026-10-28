@@ -2179,4 +2179,38 @@ body.dev-mode-active .profile-wrapper {
     transform: scale(0.75) !important; 
     transform-origin: top center !important;
   }
+
+  /* --- FIX PROJECT MODAL PADDING & TEXT (Overrides the CV Printer bug) --- */
+  
+  /* 1. Restore the breathing room inside the box */
+  #project-modal .modal-content {
+    width: 90% !important;
+    padding: 25px !important; 
+    box-sizing: border-box !important;
+  }
+
+  /* 2. Fix the huge title and protect the Close button */
+  #modal-title {
+    font-size: 1.2rem !important; /* Professional, smaller font size */
+    padding-right: 35px !important; /* Pushes text away from the red X */
+    margin-top: 5px !important;
+    margin-bottom: 20px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important; /* Allows long text to wrap nicely */
+    word-wrap: break-word !important;
+  }
+
+  /* 3. Lock the Red X strictly to the top right */
+  #project-modal button[onclick="closeModal()"] {
+    top: 15px !important;
+    right: 15px !important;
+  }
+
+  /* 4. Ensure the description text looks clean */
+  #modal-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    margin-top: 20px !important;
+    color: #cbd5e1 !important;
+  }
 }
