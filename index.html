@@ -664,7 +664,7 @@
           ~/shimeih_os/Print_Spooler.exe
         </div>
         <div style="display: flex; gap: 15px; align-items: center;">      
-          
+
         <!-- Sleek Icon-Only Mobile Download Button -->
         <button onclick="forceDownload()" title="Download CV" style="background-color: #38bdf8; color: #0f172a; border: none; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; padding: 0; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
           📥
@@ -687,7 +687,13 @@
 
         <!-- The Real PDF (Starts at 0 height and grows to reveal the iframe) -->
         <div id="real-printed-cv" class="real-printed-cv">
-          <iframe src="Montefalcon_Resume.pdf" class="real-pdf-frame"></iframe>
+          
+          <!-- DESKTOP: Native PDF Renderer -->
+          <iframe src="Montefalcon_Resume.pdf" class="real-pdf-frame desktop-only-pdf"></iframe>
+          
+          <!-- MOBILE: Image Fallback -->
+          <img src="cv_mobile.png" alt="Shimeih Montefalcon Resume" class="mobile-only-cv">
+          
         </div>
 
         <p id="print-status-text" class="print-status-text" style="position: absolute; bottom: 20px;">Printing Shimeih_CV.pdf...</p>
