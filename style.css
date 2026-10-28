@@ -2089,4 +2089,94 @@ body.dev-mode-active .profile-wrapper {
     width: 100% !important;
     min-width: 600px !important; /* Forces the PDF to render fully, allowing you to scroll to see the right side */
   }
+
+  /* --- FIX PROJECT MODAL TITLE OVERLAP --- */
+  #modal-title {
+    padding-right: 40px !important; /* Pushes the title text away from the red X button */
+    font-size: 1.3rem !important; /* Scales down the font slightly for mobile */
+    line-height: 1.4 !important;
+  }
+
+  /* --- FIX MOBILE PHONE MOCKUP SCALING --- */
+  .phone-container {
+    margin-bottom: 60px !important; /* Adds padding so it clears the floating system buttons */
+    overflow: hidden;
+  }
+  
+  .phone-frame {
+    transform: scale(0.85); /* Shrinks the massive phone to 85% size so it fits perfectly */
+    transform-origin: top center;
+  }
+
+  /* ========================================= */
+  /* --- THE REAL MOBILE MODALS OVERHAUL --- */
+  /* ========================================= */
+
+  /* 1. PROJECT MODAL FIXES (Fixes Image 88811) */
+  #project-modal .modal-content {
+    width: 92% !important;
+    padding: 20px !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+  }
+
+  #modal-title {
+    font-size: 1.15rem !important; /* Smaller, professional font */
+    padding-right: 40px !important; /* Prevents text from hitting the red X */
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    margin-top: 5px !important;
+  }
+
+  #project-modal .modal-gallery {
+    height: 220px !important; /* Prevents the image from taking over the screen */
+    margin-bottom: 15px !important;
+  }
+
+  #modal-desc {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 2. CV PRINTER MODAL FIXES (Fixes Image 88803) */
+  #cv-modal .modal-content {
+    width: 96% !important;
+    height: 85vh !important;
+  }
+
+  /* The Header Bar of the CV Modal */
+  #cv-modal .modal-content > div:first-child {
+    flex-wrap: wrap !important; /* Allows buttons to drop to a new line if cramped */
+    gap: 12px !important;
+    padding: 15px !important;
+  }
+
+  /* The Terminal Text (Print_Spooler.exe) */
+  #cv-modal .modal-content > div:first-child > div:first-child {
+    font-size: 0.85rem !important;
+    white-space: normal !important;
+    word-break: break-all !important; /* Forces the long .exe path to wrap natively */
+  }
+
+  /* The Button Group (Download & Close) */
+  #cv-modal .modal-content > div:first-child > div:last-child {
+    width: 100% !important;
+    justify-content: flex-end !important; /* Pushes the buttons neatly to the right */
+  }
+
+  .real-pdf-frame {
+    min-width: 600px !important; 
+  }
+
+  /* 3. PHONE APP MOCKUP FIX (Perfect Centering) */
+  .phone-container {
+    width: 100% !important; /* Forces container to span full width of screen */
+    display: flex !important;
+    justify-content: center !important; /* Locks the phone exactly in the middle */
+    align-items: center !important;
+    margin: 20px auto 60px auto !important;
+    transform: scale(0.75) !important; 
+    transform-origin: top center !important;
+  }
 }
